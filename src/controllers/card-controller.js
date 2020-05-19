@@ -1,47 +1,54 @@
 'use strict'
 
 const mongoose = require('mongoose');
-const list = require("../models/list");
 const authService = require('../auth-service');
 
 const Card = mongoose.model('Card');
-const List = mongoose.model('List');
+const User = mongoose.model('User');
 
-function addCardToList(card) {
-    console.log('id da lista:   ',card.status);
+function addCardToUser(card) {
+    console.log('id do user:   ',card.owner);
     console.log('id do card:    ', card._id);
-	return List.findByIdAndUpdate(card.status, { $push: { cards: card._id } }, { new: true , upsert: true },
+	return User.findByIdAndUpdate(card.owner, { $push: { cards: card._id } }, { new: true , upsert: true },
         function (err, data) {
             if (err) throw err;
-            console.log(data); 
+            console.log('card adicionado: ', data); 
         });
 };
 
-function removeCardToList(card_id, list_id) {
-    console.log(card_id, list_id);
-    return List.findByIdAndDelete(list_id, {$pop: {cards: card_id}}, 
+function removeCardToUser(card) {
+    console.log(card._id, card.owner);
+    return User.findByIdAndDelete(cad.owner, {$pop: {cards: card._id}}, 
         function (err, data){
             if (err) throw err;
-            console.log('data do if: ', data);
+            console.log('card deletado: ', data);
         })
-        .then(data => console.log('data do then: ', data))
-        .catch(error => console.error('error: ', error));
 };
-//retorna um card
-exports.get = async (req, res) => {
-    Card.findOne({ id: req.params.id })
+
+//Retorna um card
+exports.getOne = async (req, res) => {
+    Card.findOne({ _id: req.params.id })
     .then(data => {
+        console.log(data);
         res.status(200).send(data); //ok 
     }).catch(error => {
         res.status(400).send(error)
     });
 };
 
+//Retorna todos os cards de um user
+exports.getAll = async (req, res) => {
+    const token = req.headers['x-api-key'];
+    const auth = await authService.decodeToken(token);
 
-exports.get = async (req, res) => {
-    Card.find({})
+    let response = { todo: [], doing: [], done: [] }
+    Card.find({ owner: auth.user_id })
     .then(data => {
-        res.status(200).send(data); //ok 
+        //DEIXAR SÓ COM ID, DESCRIPTION E STATUS!!!!!!!!!
+        response.todo = data.filter(card => card.status == 'todo');
+        response.doing = data.filter(card => card.status == 'doing');
+        response.done = data.filter(card => card.status == 'done');
+        res.status(200).send(response); //ok 
     }).catch(error => {
         res.status(400).send(error)
     });
@@ -49,44 +56,51 @@ exports.get = async (req, res) => {
 
 //Cria novo card
 exports.post = async (req, res) => {
+    const token = req.headers['x-api-key'];
+    const auth = await authService.decodeToken(token);
 
     let card = new Card();
     card.description = req.body.description; //informação do card
     card.status = req.body.status;
-    addCardToList(card);
+    card.owner = auth.user_id;
+    
     card.save()
     .then(data => {
+        addCardToUser(data);
         res.status(201).send({ message: 'Card registrado com sucesso', data: data }); //created 
     }).catch(error => {
         res.status(400).send({ message: 'Falha ao registrar card', data: error })
     });
 };
 
-//Altera status
+
 exports.put = async (req, res) => {
-    await removeCardToList (req.params.id, req.body.old_status);
-    const card = await Card.findByIdAndUpdate(req.params.id, { $set: { status : req.body.new_status } }, { new:true })
-
-    addCardToList(data)
-    .then(data => {
-        res.status(201).send({ message: 'Card alterado com sucesso', data: data }); //created 
-    }).catch(error => {
-        res.status(400).send({ message: 'Falha ao alterar card', data: error })
-    });
-};
-
-exports.edit = (req, res) => {
-    Card.findByIdAndUpdate(req.params.id, { $set: { status : req.body.status } }, { new:true })
+    //Altera status do card
+    if(req.body.status){
+        Card.findByIdAndUpdate(req.params.id, { $set: { status : req.body.status } }, { new:true })
+        .then(data => {
+            res.status(201).send({ message: 'Status do card alterado com sucesso', data: data }); //created 
+        }).catch(error => {
+            res.status(400).send({ message: 'Falha ao alterar status do card', data: error })
+        });
+    }
+    //Altera conteúdo do card
+    if(req.body.description){
+        Card.findByIdAndUpdate(req.params.id, { $set: { description : req.body.description } }, { new:true })
     .then(data => {
         res.status(201).send({ message: 'Card editado com sucesso', data: data }); //created 
     }).catch(error => {
         res.status(400).send({ message: 'Falha ao editado card', data: error })
     });
+    }
+    
 };
 
-exports.delete = (req, res) => {
-    Card.findByIdAndRemove(req.params.id)
+//Deleta card
+exports.delete = async (req, res) => {
+    Card.findByIdAndDelete(req.params.id)
     .then(data => {
+        removeCardToUser(data);
         res.status(200).send({message: 'Card removido com sucesso', data: data}); //ok
     }).catch(error => {
         res.status(400).send({message: 'Falha ao remover card', data: error})
