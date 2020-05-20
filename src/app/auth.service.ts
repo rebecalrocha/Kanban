@@ -13,10 +13,13 @@ export class AuthService {
     }
 
     login(email, password): Observable<any> {
-        return this.http.post('http://localhost:3000/login', JSON.stringify({ email: email, password: password }))
+        let body = {"email": email, "password": password}
+        console.log(body);
+        return this.http.post('http://localhost:3000/login', body)
             .pipe(
                 map((data: any)  => {
                     let token = data && data.token;
+                    console.log(data);
                     if (token) {
                         this.token = token;
                         localStorage.setItem('currentUser', JSON.stringify({ token: token }));

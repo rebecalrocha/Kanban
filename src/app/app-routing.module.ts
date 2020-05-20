@@ -9,7 +9,7 @@ import {KanbanComponent} from './kanban/kanban.component';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
-  {path: 'kanban', component: KanbanComponent},
+  {path: 'kanban', component: KanbanComponent, canActivate: [AuthGuard]},
   {path: '', component: KanbanComponent}
 //  {path: 'events', component: EventsComponent, canActivate: [AuthGuard]},
 

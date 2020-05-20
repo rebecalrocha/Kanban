@@ -1,57 +1,71 @@
-
 <div class="board">
-    <div class="board-wrapper">
-        <div class="board-columns" cdkDropListGroup>
-            <div class="board-column">
-    
-                <div class="column-title" style="text-align: center">
-                    TO DO
-                </div>
-    
-                <div class="tasks-container"
-                    cdkDropList
-                    #todoList="cdkDropList"
-                    [cdkDropListData]="todo"
-                    (cdkDropListDropped)="drop($event)">
-                  <div class="task" *ngFor="let item of todo" cdkDrag>
-                    {{ item }}
-                  </div>
-                </div>
-            </div>
-            <div class="board-column">
-    
-                <div class="column-title" style="text-align: center">
-                    DOING
-                </div>
-    
-                <div class="tasks-container"
-                    cdkDropList
-                    #doingList="cdkDropList"
-                    [cdkDropListData]="doing"
-                    (cdkDropListDropped)="drop($event)">
-                  <div class="task" *ngFor="let item of doing" cdkDrag>
-                    {{ item }}
-                  </div>
-                </div>
-            </div>
-            <div class="board-column">
-    
-                <div class="column-title" style="text-align: center">
-                    DONE
-                </div>
-    
-                <div class="tasks-container"
-                    cdkDropList
-                    #doneList="cdkDropList"
-                    [cdkDropListData]="done"
-                    (cdkDropListDropped)="drop($event)">
-                  <div class="task" *ngFor="let item of done" cdkDrag>
-                    {{ item }}
-                  </div>
-                </div>
-            </div>
-        </div>
-    </div> 
-</div>
+  <div class="my-5">
+      <div class="board-columns" cdkDropListGroup>
 
+          <div class="card rounded board-column mr-1 ml-5">  <!-- task -->
+              <div class="card-header text-center">
+                <h5 class="font-weight-bold">TO DO</h5>
+              </div>
+      
+              <div class="card-body tasks-container"
+                  cdkDropList
+                  #todoList="cdkDropList"
+                  [cdkDropListData]="todo"
+                  (cdkDropListDropped)="drop($event)">
+                  <div class="task bg-light text-break rounded shadow-lg p-3 mb-2 dropdown-toggle" *ngFor="let item of todo" cdkDrag [cdkDragData]="item._id" data-toggle="dropdown" href="#" >
+                  {{ item.description }}
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Edit</a>
+                      <a class="dropdown-item" href="#">Delete</a>
+                    </div>
+                  </div>
+              </div>
   
+              <div class="card-footer text-center">
+                  <a href="#" class="btn btn-outline-dark">+</a>
+              </div>
+          </div>
+
+          <div class="card rounded board-column mx-4">  <!-- task -->
+              <div class="card-header text-center">
+                  <h5 class="font-weight-bold">DOING</h5>
+                </div>
+  
+              <div class="card-body tasks-container"
+                  cdkDropList
+                  #doingList="cdkDropList"
+                  [cdkDropListData]="doing"
+                  (cdkDropListDropped)="drop($event)">
+                  <div class="task bg-light text-break rounded shadow-lg p-3 mb-2" *ngFor="let item of doing" cdkDrag [cdkDragData]="item._id">
+                  {{ item.description }}
+                  </div>
+              </div>
+                
+              <div class="card-footer text-center">
+                  <a href="#" class="btn btn-outline-dark">+</a>
+              </div>
+          </div>
+
+          <div class="card rounded board-column mr-5 ml-1">  <!-- task -->
+              <div class="card-header text-center">
+                  <h5 class="font-weight-bold">DONE</h5>
+                </div>
+                  
+              <div class="card-body tasks-container"
+                  cdkDropList
+                  #doneList="cdkDropList"
+                  [cdkDropListData]="done"
+                  (cdkDropListDropped)="drop($event)">
+                  <div class="task bg-light text-break rounded shadow-lg p-3 mb-2" *ngFor="let item of done" cdkDrag [cdkDragData]="item._id">
+                  {{ item.description }}
+                  </div>
+              </div>
+                
+              <div class="card-footer text-center">
+                  <a href="#" class="btn btn-outline-dark">+</a>
+              </div>
+          </div>
+
+      </div>
+  </div>
+</div>

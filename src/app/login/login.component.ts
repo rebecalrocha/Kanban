@@ -13,6 +13,7 @@ export class LoginComponent {
 
 
   login(email, password){
+    console.log(email, password);
     this.authentication.login(email, password)
       .subscribe((data: any) => {
         console.log(data);

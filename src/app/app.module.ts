@@ -11,19 +11,23 @@ import { SignupComponent } from './signup/signup.component';
 import { KanbanComponent } from './kanban/kanban.component';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatDialogModule} from '@angular/material/dialog';
+import { EditCardComponent } from './edit-card/edit-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    KanbanComponent
+    KanbanComponent,
+    EditCardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    DragDropModule
+    DragDropModule,
+    MatDialogModule
   ],
   providers: [
     AuthService, 
