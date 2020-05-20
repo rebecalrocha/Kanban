@@ -1,0 +1,57 @@
+
+<div class="board">
+    <div class="board-wrapper">
+        <div class="board-columns" cdkDropListGroup>
+            <div class="board-column">
+    
+                <div class="column-title" style="text-align: center">
+                    TO DO
+                </div>
+    
+                <div class="tasks-container"
+                    cdkDropList
+                    #todoList="cdkDropList"
+                    [cdkDropListData]="todo"
+                    (cdkDropListDropped)="drop($event)">
+                  <div class="task" *ngFor="let item of todo" cdkDrag>
+                    {{ item }}
+                  </div>
+                </div>
+            </div>
+            <div class="board-column">
+    
+                <div class="column-title" style="text-align: center">
+                    DOING
+                </div>
+    
+                <div class="tasks-container"
+                    cdkDropList
+                    #doingList="cdkDropList"
+                    [cdkDropListData]="doing"
+                    (cdkDropListDropped)="drop($event)">
+                  <div class="task" *ngFor="let item of doing" cdkDrag>
+                    {{ item }}
+                  </div>
+                </div>
+            </div>
+            <div class="board-column">
+    
+                <div class="column-title" style="text-align: center">
+                    DONE
+                </div>
+    
+                <div class="tasks-container"
+                    cdkDropList
+                    #doneList="cdkDropList"
+                    [cdkDropListData]="done"
+                    (cdkDropListDropped)="drop($event)">
+                  <div class="task" *ngFor="let item of done" cdkDrag>
+                    {{ item }}
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+  
