@@ -11,10 +11,10 @@ router.post('/signup', userController.post);
 router.post('/login', userController.login);
 router.delete('/users/:id', userController.delete);
 
-router.get('/cards/:id', cardController.getOne);
+router.get('/cards/:id', cardController.getOne); //utilizar authService no futuro
 router.get('/cards', authService.authorizeUser, cardController.getAll);
 router.post('/cards', authService.authorizeUser, cardController.post);
-router.put('/cards/:id', cardController.put);
+router.put('/cards/:id', cardController.put); //utilizar authService no futuro
 router.delete('/cards/:id', authService.authorizeUser, cardController.delete);
 
 module.exports = router;
