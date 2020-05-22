@@ -1,12 +1,13 @@
-<p>create-card works!</p>
-<form>
-    <div class="form-group">
-        <input type="text" class="form-control" id="inputDescription" #description ngModel name="description">
-    </div>
-    <div class="row">
-        <div class=col-12>
-            <button type="button" class="btn btn-dark" (click)="create(description.value)">Save</button>
-            <button type="button" class="btn btn-dark float-right" routerLink="/kanban">Cancel</button>
-        </div>
-    </div>
-</form>
+<div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Create Card:</h5>
+   <!-- <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+     <span aria-hidden="true">&times;</span>
+   </button> -->
+</div>
+<div class="modal-body">
+   <input type="text" class="form-control" name="description" [(ngModel)]="description">
+</div>
+<div class="modal-footer">
+   <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+   <button type="button" class="btn btn-outline-dark" (click)="create()" id="save">Save</button>
+</div>

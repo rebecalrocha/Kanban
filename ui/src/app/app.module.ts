@@ -11,11 +11,12 @@ import { SignupComponent } from './signup/signup.component';
 import { KanbanComponent } from './kanban/kanban.component';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
 import { EditCardComponent } from './edit-card/edit-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule }   from '@angular/forms';
 import { CreateCardComponent } from './create-card/create-card.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -33,13 +34,21 @@ import { CreateCardComponent } from './create-card/create-card.component';
     DragDropModule,
     MatDialogModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    NgbModule
     
+  ],
+  entryComponents:[
+    EditCardComponent,
+    CreateCardComponent
   ],
   providers: [
     AuthService, 
-    AuthGuard
+    AuthGuard,
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
