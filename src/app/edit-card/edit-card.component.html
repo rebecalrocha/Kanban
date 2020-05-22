@@ -1,0 +1,15 @@
+<p>edit-card works!</p>
+<h2 mat-dialog-title>Install Angular</h2>
+<!-- <h1 mat-dialog-title>Hi {{data}}</h1> -->
+
+<form>
+    <div class="form-group">
+        <input type="text" class="form-control" id="inputDescription" name="description" [(ngModel)]="description">
+    </div>
+    <div class="row">
+        <div class=col-12>
+            <button type="button" class="btn btn-dark" (click)="edit()">Edit</button>
+            <button type="button" class="btn btn-dark float-right" (click)="cancel()">Cancel</button>
+        </div>
+    </div>
+</form>

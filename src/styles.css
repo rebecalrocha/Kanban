@@ -1,0 +1,28 @@
+@import '../node_modules/bulma/bulma.sass';
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Lato:400,800,900');
+
+html, body {
+    font-family: "Nunito", sans-serif;
+    border-width: 2px;
+    
+}
+
+body{
+    background-image: url(./assets/image.png);
+}
+
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 140px;
+    margin-top: 20px;
+  }
+    
+  #content {
+    margin: 15% 35%;
+    border: 200px auto;
+    text-align: center;
+    
+  }

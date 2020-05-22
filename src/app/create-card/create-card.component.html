@@ -1,0 +1,12 @@
+<p>create-card works!</p>
+<form>
+    <div class="form-group">
+        <input type="text" class="form-control" id="inputDescription" #description ngModel name="description">
+    </div>
+    <div class="row">
+        <div class=col-12>
+            <button type="button" class="btn btn-dark" (click)="create(description.value)">Save</button>
+            <button type="button" class="btn btn-dark float-right" routerLink="/kanban">Cancel</button>
+        </div>
+    </div>
+</form>

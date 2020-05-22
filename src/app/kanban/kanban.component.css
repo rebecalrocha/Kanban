@@ -1,0 +1,27 @@
+.board-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.board-column {
+    width: 500px;
+    background:rgba(211,211,211, 0.6)
+}
+
+.card-header {
+    border-bottom: none;
+    background-color: transparent;
+}
+
+.card-footer {
+    border-top: none;
+    background-color: transparent;
+}
+
+.task {
+    display: flex; 
+    justify-content: space-between;
+    /* vertical-align: sub; */
+}
+

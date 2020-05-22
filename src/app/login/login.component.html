@@ -1,0 +1,15 @@
+<div class="wapper">
+    <div id="content">
+        <form class="mt-5">
+            <div class="form-group col-12">
+                <label for="inputEmail">Email</label>
+                <input type="email" class="form-control" #email id="inputEmail">
+            </div>
+            <div class="form-group col-12">
+                <label for="inputPassword">Password</label>
+                <input type="password" class="form-control" #password id="inputPassword">
+            </div>
+            <button type="button" class="btn btn-dark" (click)="login(email.value, password.value)">Log In</button>
+        </form>
+    </div>
+</div>
