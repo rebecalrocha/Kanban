@@ -12,17 +12,23 @@
                   #todoList="cdkDropList"
                   [cdkDropListData]="todo"
                   (cdkDropListDropped)="drop($event)">
-                  <div class="task bg-light text-break rounded shadow-lg p-3 mb-2 dropdown-toggle" *ngFor="let item of todo" cdkDrag [cdkDragData]="item._id" data-toggle="dropdown" href="#" >
-                  {{ item.description }}
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Edit</a>
-                      <a class="dropdown-item" href="#">Delete</a>
+                  <div class="task bg-light rounded shadow-lg p-3 mb-2" *ngFor="let item of todo" cdkDrag [cdkDragData]="item._id">
+                    <div class="text-break w-100 text-justify">
+                      {{ item.description }}
+                    </div>
+                    <div style="width: 50px;margin-top: 5px;" class="text-right">
+                      <a (click)="editCard(item)" class="mr-1">
+                        <img src="assets/edit.svg">
+                      </a>
+                      <a (click)="deleteCard(item, $event)"> 
+                        <img src="assets/trash.svg">
+                      </a>
                     </div>
                   </div>
               </div>
   
               <div class="card-footer text-center">
-                  <a href="#" class="btn btn-outline-dark">+</a>
+                  <a (click)="createCard(todoList.id)" class="btn btn-outline-dark">+</a>
               </div>
           </div>
 
@@ -36,13 +42,23 @@
                   #doingList="cdkDropList"
                   [cdkDropListData]="doing"
                   (cdkDropListDropped)="drop($event)">
-                  <div class="task bg-light text-break rounded shadow-lg p-3 mb-2" *ngFor="let item of doing" cdkDrag [cdkDragData]="item._id">
-                  {{ item.description }}
+                  <div class="task bg-light rounded shadow-lg p-3 mb-2" *ngFor="let item of doing" cdkDrag [cdkDragData]="item._id">
+                    <div class="text-break w-100 text-justify">
+                      {{ item.description }}
+                    </div>
+                    <div style="width: 50px;margin-top: 5px;" class="text-right">
+                      <a (click)="editCard(item)" class="mr-1">
+                        <img src="assets/edit.svg">
+                      </a>
+                      <a (click)="deleteCard(item, $event)"> 
+                        <img src="assets/trash.svg">
+                      </a>
+                    </div>
                   </div>
               </div>
                 
               <div class="card-footer text-center">
-                  <a href="#" class="btn btn-outline-dark">+</a>
+                  <a (click)="createCard(doingList.id)" class="btn btn-outline-dark">+</a>
               </div>
           </div>
 
@@ -56,13 +72,23 @@
                   #doneList="cdkDropList"
                   [cdkDropListData]="done"
                   (cdkDropListDropped)="drop($event)">
-                  <div class="task bg-light text-break rounded shadow-lg p-3 mb-2" *ngFor="let item of done" cdkDrag [cdkDragData]="item._id">
-                  {{ item.description }}
+                  <div class="task bg-light rounded shadow-lg p-3 mb-2" *ngFor="let item of done" cdkDrag [cdkDragData]="item._id">
+                    <div class="text-break w-100 text-justify">
+                      {{ item.description }}
+                    </div>
+                    <div style="width: 50px;margin-top: 5px;" class="text-right">
+                      <a (click)="editCard(item)" class="mr-1">
+                        <img src="assets/edit.svg">
+                      </a>
+                      <a (click)="deleteCard(item, $event)"> 
+                        <img src="assets/trash.svg">
+                      </a>
+                    </div>
                   </div>
               </div>
                 
               <div class="card-footer text-center">
-                  <a href="#" class="btn btn-outline-dark">+</a>
+                  <a (click)="createCard(doneList.id)" class="btn btn-outline-dark">+</a>
               </div>
           </div>
 

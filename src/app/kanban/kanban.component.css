@@ -9,11 +9,19 @@
     background:rgba(211,211,211, 0.6)
 }
 
-.task {
-    text-indent: 10px;
-}
-
 .card-header {
     border-bottom: none;
     background-color: transparent;
 }
+
+.card-footer {
+    border-top: none;
+    background-color: transparent;
+}
+
+.task {
+    display: flex; 
+    justify-content: space-between;
+    /* vertical-align: sub; */
+}
+

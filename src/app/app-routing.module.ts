@@ -10,12 +10,12 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'kanban', component: KanbanComponent, canActivate: [AuthGuard]},
-  {path: '', component: KanbanComponent}
+  {path: '', component: KanbanComponent},
 //  {path: 'events', component: EventsComponent, canActivate: [AuthGuard]},
 
 
   //senão volta para login
-//  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({

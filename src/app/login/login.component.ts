@@ -13,10 +13,10 @@ export class LoginComponent {
 
 
   login(email, password){
-    console.log(email, password);
+    //console.log(email, password);
     this.authentication.login(email, password)
       .subscribe((data: any) => {
-        console.log(data);
+        //console.log(data);
         this.router.navigate(['/kanban'])
       });
   }
