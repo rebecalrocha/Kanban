@@ -18,7 +18,7 @@ function addCardToUser(card) {
 
 function removeCardToUser(card) {
     console.log(card._id, card.owner);
-    return User.findByIdAndDelete(cad.owner, {$pop: {cards: card._id}}, 
+    return User.findByIdAndDelete(card.owner, {$pop: {cards: card._id}}, 
         function (err, data){
             if (err) throw err;
             console.log('card deletado: ', data);
@@ -97,10 +97,10 @@ exports.put = async (req, res) => {
 };
 
 //Deleta card
-exports.delete = async (req, res) => {
-    Card.findByIdAndDelete(req.params.id)
-    .then(data => {
-        removeCardToUser(data);
+exports.delete = (req, res) => {
+     Card.findByIdAndDelete(req.params.id)
+    .then(async data => {
+        await removeCardToUser(data);
         res.status(200).send({message: 'Card removido com sucesso', data: data}); //ok
     }).catch(error => {
         res.status(400).send({message: 'Falha ao remover card', data: error})

@@ -15,6 +15,6 @@ router.get('/cards/:id', cardController.getOne); //utilizar authService no futur
 router.get('/cards', authService.authorizeUser, cardController.getAll);
 router.post('/cards', authService.authorizeUser, cardController.post);
 router.put('/cards/:id', cardController.put); //utilizar authService no futuro
-router.delete('/cards/:id', authService.authorizeUser, cardController.delete);
+router.delete('/cards/:id', cardController.delete);
 
 module.exports = router;

@@ -41,7 +41,7 @@ exports.post = async (req, res) => {
 //Loga usuário
 exports.login = async (req, res) => {
     try {
-        console.log(req);
+        //console.log(req);
         let user = await User.findOne({ email: req.body.email, password: md5(req.body.password + global.SALT_KEY) });
         console.log(user);
         if(!user) {
