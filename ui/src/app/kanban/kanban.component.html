@@ -1,97 +1,92 @@
-<div class="board">
-  <div class="my-5">
-      <div class="board-columns" cdkDropListGroup>
+<div class="board my-5" cdkDropListGroup>
 
-          <div class="card rounded board-column mr-1 ml-5">  <!-- task -->
-              <div class="card-header text-center">
-                <h5 class="font-weight-bold">TO DO</h5>
-              </div>
-      
-              <div class="card-body tasks-container"
-                  cdkDropList
-                  #todoList="cdkDropList"
-                  [cdkDropListData]="todo"
-                  (cdkDropListDropped)="drop($event)">
-                  <div class="task bg-light rounded shadow-lg p-3 mb-2" *ngFor="let item of todo" cdkDrag [cdkDragData]="item._id">
-                    <div class="text-break w-100 text-justify">
-                      {{ item.description }}
-                    </div>
-                    <div style="width: 50px; margin-top: 5px;" class="text-right">
-                      <a class="mr-1" (click)="editCard(item)">
-                        <img src="assets/edit.svg">
-                      </a>
-                      <a (click)="deleteCard(item)"> 
-                        <img src="assets/trash.svg">
-                      </a>
-                    </div>
-                  </div>
-              </div>
-  
-              <div class="card-footer text-center">
-                  <a (click)="createCard(todoList.id)" class="btn btn-outline-dark">+</a>
-              </div>
+  <div class="card rounded column mr-1 ml-5">  <!-- task TO DO -->
+      <div class="card-header text-center">
+        <h5 class="text font-weight-bold">TO DO</h5>
+      </div>
+      <div class="card-body"
+          cdkDropList
+          #todoList="cdkDropList"
+          id="todo"
+          [cdkDropListData]="todo"
+          (cdkDropListDropped)="drop($event)">
+          <div class="task bg-light rounded shadow-lg p-3 mb-2" *ngFor="let item of todo" cdkDrag [cdkDragData]="item._id">
+            <div class="text-break text-justify w-100">
+              {{ item.description }}
+            </div>
+            <div style="width: 50px; margin-top: 5px;" class="text-right">
+              <a class="icon mr-1" (click)="editCard(item)">
+                <img src="assets/edit.svg">
+              </a>
+              <a class="icon" (click)="deleteCard(item)"> 
+                <img src="assets/trash.svg">
+              </a>
+            </div>
           </div>
-
-          <div class="card rounded board-column mx-4">  <!-- task -->
-              <div class="card-header text-center">
-                  <h5 class="font-weight-bold">DOING</h5>
-                </div>
-  
-              <div class="card-body tasks-container"
-                  cdkDropList
-                  #doingList="cdkDropList"
-                  [cdkDropListData]="doing"
-                  (cdkDropListDropped)="drop($event)">
-                  <div class="task bg-light rounded shadow-lg p-3 mb-2" *ngFor="let item of doing" cdkDrag [cdkDragData]="item._id">
-                    <div class="text-break w-100 text-justify">
-                      {{ item.description }}
-                    </div>
-                    <div style="width: 50px; margin-top: 5px;" class="text-right">
-                      <a class="mr-1" (click)="editCard(item)">
-                        <img src="assets/edit.svg">
-                      </a>
-                      <a (click)="deleteCard(item)"> 
-                        <img src="assets/trash.svg">
-                      </a>
-                    </div>
-                  </div>
-              </div>
-                
-              <div class="card-footer text-center">
-                  <a (click)="createCard(doingList.id)" class="btn btn-outline-dark">+</a>
-              </div>
-          </div>
-
-          <div class="card rounded board-column mr-5 ml-1">  <!-- task -->
-              <div class="card-header text-center">
-                  <h5 class="font-weight-bold">DONE</h5>
-                </div>
-                  
-              <div class="card-body tasks-container"
-                  cdkDropList
-                  #doneList="cdkDropList"
-                  [cdkDropListData]="done"
-                  (cdkDropListDropped)="drop($event)">
-                  <div class="task bg-light rounded shadow-lg p-3 mb-2" *ngFor="let item of done" cdkDrag [cdkDragData]="item._id">
-                    <div class="text-break w-100 text-justify">
-                      {{ item.description }}
-                    </div>
-                    <div style="width: 50px; margin-top: 5px;" class="text-right">
-                      <a class="mr-1" (click)="editCard(item)">
-                        <img src="assets/edit.svg">
-                      </a>
-                      <a (click)="deleteCard(item)"> 
-                        <img src="assets/trash.svg">
-                      </a>
-                    </div>
-                  </div>
-              </div>
-                
-              <div class="card-footer text-center">
-                  <a (click)="createCard(doneList.id)" class="btn btn-outline-dark">+</a>
-              </div>
-          </div>
-
+      </div>
+      <div class="card-footer text-center">
+          <a (click)="createCard('todo')" class="btn btn-outline-dark">+</a>
       </div>
   </div>
+
+  <div class="card rounded column mx-4">  <!-- task DOING -->
+      <div class="card-header text-center">
+          <h5 class="text font-weight-bold">DOING</h5>
+        </div>
+      <div class="card-body"  
+      cdkDragHandle 
+      cdkDropList 
+      #doingList="cdkDropList"
+      id="doing"
+      [cdkDropListData]="doing" 
+      (cdkDropListDropped)="drop($event)">
+          <div class="task bg-light rounded shadow-lg p-3 mb-2" *ngFor="let item of doing" cdkDrag cdkDragHandle [cdkDragData]="item._id">
+            <div class="text-break text-justify w-100">
+              {{ item.description }}
+            </div>
+            <div style="width: 50px; margin-top: 5px;" class="text-right">
+              <a class="icon mr-1" (click)="editCard(item)">
+                <img src="assets/edit.svg">
+              </a>
+              <a class="icon" (click)="deleteCard(item)"> 
+                <img src="assets/trash.svg">
+              </a>
+            </div>
+          </div>
+      </div>
+      <div class="card-footer text-center">
+          <a (click)="createCard('doing')" class="btn btn-outline-dark">+</a>
+      </div>
+  </div>
+
+  <div class="card rounded column mr-5 ml-1">  <!-- task DONE -->
+      <div class="card-header text-center">
+          <h5 class="text font-weight-bold">DONE</h5>
+        </div>
+      <div class="card-body"
+          cdkDropList
+          #doneList="cdkDropList"
+          id="done"
+          [cdkDropListData]="done"
+          (cdkDropListDropped)="drop($event)">
+          <div class="task bg-light rounded shadow-lg p-3 mb-2" *ngFor="let item of done" cdkDrag [cdkDragData]="item._id">
+            <div class="text-break text-justify w-100">
+              {{ item.description }}
+            </div>
+            <div style="width: 50px; margin-top: 5px;" class="text-right">
+              <a class="icon mr-1" (click)="editCard(item)">
+                <img src="assets/edit.svg">
+              </a>
+              <a class="icon" (click)="deleteCard(item)"> 
+                <img src="assets/trash.svg">
+              </a>
+            </div>
+          </div>
+      </div>
+      <div class="card-footer text-center">
+          <a (click)="createCard('done')" class="btn btn-outline-dark">+</a>
+      </div>
+  </div>
+
 </div>
+

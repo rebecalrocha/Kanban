@@ -1,10 +1,10 @@
-.board-columns {
+.board {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
 
-.board-column {
+.column {
     width: 500px;
     background:rgba(211,211,211, 0.6)
 }
@@ -22,6 +22,9 @@
 .task {
     display: flex; 
     justify-content: space-between;
-    /* vertical-align: sub; */
+    cursor: grabbing;
 }
 
+.icon:hover{
+    cursor: pointer;
+}

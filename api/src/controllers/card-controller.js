@@ -9,7 +9,7 @@ const User = mongoose.model('User');
 function addCardToUser(card) {
     console.log('id do user:   ',card.owner);
     console.log('id do card:    ', card._id);
-	return User.findByIdAndUpdate(card.owner, { $push: { cards: card._id } }, { new: true , upsert: true },
+	return User.findByIdAndUpdate(card.owner, {$push: {cards: card._id}}, {upsert: true},
         function (err, data) {
             if (err) throw err;
             console.log('card adicionado: ', data); 
@@ -44,7 +44,6 @@ exports.getAll = async (req, res) => {
     let response = { todo: [], doing: [], done: [] }
     Card.find({ owner: auth.user_id })
     .then(data => {
-        //DEIXAR SÓ COM ID, DESCRIPTION E STATUS!!!!!!!!!
         response.todo = data.filter(card => card.status == 'todo');
         response.doing = data.filter(card => card.status == 'doing');
         response.done = data.filter(card => card.status == 'done');
@@ -79,7 +78,7 @@ exports.put = async (req, res) => {
     if(req.body.status){
         Card.findByIdAndUpdate(req.params.id, { $set: { status : req.body.status } }, { new:true })
         .then(data => {
-            res.status(201).send({ message: 'Status do card alterado com sucesso', data: data }); //created 
+            res.status(201).send({ message: 'Status do card alterado com sucesso', data: data });  
         }).catch(error => {
             res.status(400).send({ message: 'Falha ao alterar status do card', data: error })
         });
@@ -88,10 +87,13 @@ exports.put = async (req, res) => {
     if(req.body.description){
         Card.findByIdAndUpdate(req.params.id, { $set: { description : req.body.description } }, { new:true })
     .then(data => {
-        res.status(201).send({ message: 'Card editado com sucesso', data: data }); //created 
+        res.status(201).send({ message: 'Card editado com sucesso', data: data });  
     }).catch(error => {
         res.status(400).send({ message: 'Falha ao editado card', data: error })
     });
+    }
+    else{
+        res.status(400).send({ message: 'Card sem conteúdo' })
     }
     
 };
@@ -101,7 +103,7 @@ exports.delete = (req, res) => {
      Card.findByIdAndDelete(req.params.id)
     .then(async data => {
         await removeCardToUser(data);
-        res.status(200).send({message: 'Card removido com sucesso', data: data}); //ok
+        res.status(200).send({message: 'Card removido com sucesso', data: data}); 
     }).catch(error => {
         res.status(400).send({message: 'Falha ao remover card', data: error})
     });

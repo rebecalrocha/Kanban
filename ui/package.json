@@ -1,5 +1,5 @@
 {
-  "name": "kanban",
+  "name": "client-layer",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -24,8 +24,6 @@
     "@angular/router": "~9.1.4",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "bootstrap": "^4.4.0",
-    "bulma": "^0.8.2",
-    "jquery": "^3.5.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

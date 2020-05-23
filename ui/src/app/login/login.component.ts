@@ -13,11 +13,14 @@ export class LoginComponent {
 
 
   login(email, password){
-    //console.log(email, password);
     this.authentication.login(email, password)
       .subscribe((data: any) => {
-        //console.log(data);
         this.router.navigate(['/kanban'])
+      },
+      (err) => {
+        let messages = JSON.parse(sessionStorage.getItem('messages')) || [];
+        messages.push({type: 'danger', text: err.error.message});
+        sessionStorage.setItem('messages', JSON.stringify(messages));
       });
   }
 

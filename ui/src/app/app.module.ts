@@ -11,7 +11,6 @@ import { SignupComponent } from './signup/signup.component';
 import { KanbanComponent } from './kanban/kanban.component';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
 import { EditCardComponent } from './edit-card/edit-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule }   from '@angular/forms';
@@ -32,7 +31,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     HttpClientModule,
     DragDropModule,
-    MatDialogModule,
     BrowserAnimationsModule,
     FormsModule,
     NgbModule
@@ -45,7 +43,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   providers: [
     AuthService, 
     AuthGuard,
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
   bootstrap: [
     AppComponent

@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
@@ -9,7 +9,7 @@ const md5 = require('md5');
 exports.get = (req, res) => {
     User.find({})
     .then(data => {
-        res.status(200).send(data); //ok 
+        res.status(200).send(data); 
     }).catch(error => {
         res.status(400).send(error)
     });
@@ -20,7 +20,7 @@ exports.post = async (req, res) => {
     let user = await User.find({ email: req.body.email });
 
     if(user.length) 
-        return res.status(400).send({ message: 'Usuário já regitrado' })
+        return res.status(400).send({ message: 'Email não disponível' })
 
     user = new User();
     user.name = req.body.name;
@@ -32,7 +32,7 @@ exports.post = async (req, res) => {
 
     user.save()
     .then(data => {
-        res.status(201).send({ message: 'Usuário cadastrado com sucesso', data: data }); //created 
+        res.status(201).send({ message: 'Usuário cadastrado com sucesso', data: data });
     }).catch(error => {
         res.status(400).send({ message: 'Falha ao cadastrar usuário', data: error })
     });
@@ -41,9 +41,7 @@ exports.post = async (req, res) => {
 //Loga usuário
 exports.login = async (req, res) => {
     try {
-        //console.log(req);
         let user = await User.findOne({ email: req.body.email, password: md5(req.body.password + global.SALT_KEY) });
-        console.log(user);
         if(!user) {
             res.status(404).send({ message: 'Usuário ou senha inválidos' })
             return;

@@ -14,7 +14,6 @@ export class AuthService {
 
     login(email, password): Observable<any> {
         let body = {"email": email, "password": password}
-        console.log(body);
         return this.http.post('http://localhost:3000/login', body)
             .pipe(
                 map((data: any)  => {

@@ -26,10 +26,19 @@ export class SignupComponent implements OnInit {
         this.authentication.login(email, password)
           .subscribe(res => {
             if(res) {
+              let messages = JSON.parse(sessionStorage.getItem('messages')) || [];
+              messages.push({type: 'success', text: data.message});
+              sessionStorage.setItem('messages', JSON.stringify(messages));
+
               this.router.navigate(['/kanban']);
             }
           });
 
+      },
+      (err) => {
+        let messages = JSON.parse(sessionStorage.getItem('messages')) || [];
+        messages.push({type: 'danger', text: err.error.message});
+        sessionStorage.setItem('messages', JSON.stringify(messages));
       });
   }
 }

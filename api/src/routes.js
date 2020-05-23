@@ -9,12 +9,12 @@ const authService = require('./auth-service');
 router.get('/users', userController.get);
 router.post('/signup', userController.post);
 router.post('/login', userController.login);
-router.delete('/users/:id', userController.delete);
+router.delete('/users/:id', authService.authorizeUser, userController.delete);
 
-router.get('/cards/:id', cardController.getOne); //utilizar authService no futuro
+router.get('/cards/:id', authService.authorizeUser, cardController.getOne); 
 router.get('/cards', authService.authorizeUser, cardController.getAll);
 router.post('/cards', authService.authorizeUser, cardController.post);
-router.put('/cards/:id', cardController.put); //utilizar authService no futuro
-router.delete('/cards/:id', cardController.delete);
+router.put('/cards/:id', authService.authorizeUser, cardController.put);
+router.delete('/cards/:id', authService.authorizeUser, cardController.delete);
 
 module.exports = router;
