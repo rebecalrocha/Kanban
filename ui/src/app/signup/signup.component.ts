@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +11,7 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private router: Router, private http: HttpClient, private authentication: AuthService) { }
+  constructor(private router: Router, private http: HttpClient, private authentication: AuthService, private message: MessageService) { }
 
   url = 'http://localhost:3000';
 
@@ -26,19 +27,14 @@ export class SignupComponent implements OnInit {
         this.authentication.login(email, password)
           .subscribe(res => {
             if(res) {
-              let messages = JSON.parse(sessionStorage.getItem('messages')) || [];
-              messages.push({type: 'success', text: data.message});
-              sessionStorage.setItem('messages', JSON.stringify(messages));
-
+              this.message.createMessage('success', data.message);
               this.router.navigate(['/kanban']);
             }
           });
 
       },
       (err) => {
-        let messages = JSON.parse(sessionStorage.getItem('messages')) || [];
-        messages.push({type: 'danger', text: err.error.message});
-        sessionStorage.setItem('messages', JSON.stringify(messages));
+        this.message.createMessage('danger', err.error.message);
       });
   }
 }

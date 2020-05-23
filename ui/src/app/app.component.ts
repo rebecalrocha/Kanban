@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { MessageService } from './message.service';
 
 @Component({
   selector: 'app-root',
@@ -9,20 +10,14 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent {
   title = 'client-layer';
-  constructor(private authentication: AuthService, private router: Router) {
-    router.events.subscribe((val) => {
-      // sessionStorage.clear();
-  });
-  }
+  constructor(private authentication: AuthService, private router: Router, private message: MessageService) {}
 
   messages() {
-    return JSON.parse(sessionStorage.getItem('messages'));
+    return this.message.getMessages();
   }
 
-  removeMessage(index) {
-    let messages = JSON.parse(sessionStorage.getItem('messages'));
-    messages.splice(index, 1);
-    sessionStorage.setItem('messages', JSON.stringify(messages)); 
+  remove(index) {
+    this.message.removeMessage(index); 
   }
 
   isLogged(): boolean {

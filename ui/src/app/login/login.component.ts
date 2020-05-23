@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent {
 
-  constructor(private router: Router, private authentication: AuthService) { }
+  constructor(private router: Router, private authentication: AuthService, private message: MessageService) { }
 
 
   login(email, password){
@@ -18,9 +19,7 @@ export class LoginComponent {
         this.router.navigate(['/kanban'])
       },
       (err) => {
-        let messages = JSON.parse(sessionStorage.getItem('messages')) || [];
-        messages.push({type: 'danger', text: err.error.message});
-        sessionStorage.setItem('messages', JSON.stringify(messages));
+        this.message.createMessage('danger', err.error.message);
       });
   }
 

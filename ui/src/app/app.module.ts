@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import {AuthGuard} from './auth.guard';
+import {MessageService} from './message.service';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { KanbanComponent } from './kanban/kanban.component';
@@ -43,6 +44,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   providers: [
     AuthService, 
     AuthGuard,
+    MessageService
   ],
   bootstrap: [
     AppComponent
