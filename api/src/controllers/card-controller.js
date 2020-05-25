@@ -92,9 +92,6 @@ exports.put = async (req, res) => {
         res.status(400).send({ message: 'Falha ao editado card', data: error })
     });
     }
-    else{
-        res.status(400).send({ message: 'Card sem conteúdo' })
-    }
     
 };
 
