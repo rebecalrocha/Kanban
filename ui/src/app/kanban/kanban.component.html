@@ -1,5 +1,13 @@
-<nav class="navbar navbar-dark">
-  <a class="navbar-brand" >{{board_title}}</a>
+<nav class="navbar navbar-dark" style="min-width: 100%">
+  <a class="navbar-brand">{{board_title}}</a>
+
+  <div class="btn-group">
+    <a class="icon dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+    <div class="dropdown-menu dropdown-menu-right" style="min-width: 8rem;">
+      <button class="dropdown-item" type="button" (click)="editTitle()">Edit Title</button>
+      <button class="dropdown-item" type="button" (click)="deleteBoard()">Delete Board</button>
+    </div>
+  </div>
 </nav>
 
 <div class="board my-5" cdkDropListGroup>

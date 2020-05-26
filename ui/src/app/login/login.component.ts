@@ -16,7 +16,7 @@ export class LoginComponent {
   login(email, password){
     this.authentication.login(email, password)
       .subscribe((data: any) => {
-        this.router.navigate(['/kanban'])
+        this.router.navigate(['/home'])
       },
       (err) => {
         this.message.createMessage('danger', err.error.message);

@@ -18,6 +18,8 @@ import { FormsModule }   from '@angular/forms';
 import { CreateCardComponent } from './create-card/create-card.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
+import { CreateBoardComponent } from './create-board/create-board.component';
+import { EditBoardComponent } from './edit-board/edit-board.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { HomeComponent } from './home/home.component';
     KanbanComponent,
     EditCardComponent,
     CreateCardComponent,
-    HomeComponent
+    HomeComponent,
+    CreateBoardComponent,
+    EditBoardComponent
   ],
   imports: [
     BrowserModule,

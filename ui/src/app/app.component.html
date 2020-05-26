@@ -7,7 +7,7 @@
       <rect width="3" height="9" x="2.5" y="2" rx="1"/>
       <rect width="3" height="12" x="10.5" y="2" rx="1"/>
     </svg>
-    <span class="text text-secondary navbar-brand font-weight-bold ml-3">Kanban</span>
+    <span class="navbar-brand font-weight-bold ml-3" style="color:gray">Kanban</span>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -15,18 +15,31 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <button type="button" class="btn btn-outline-secondary mr-2" *ngIf="!isLogged()" routerLink="/login">Log In</button>
-      </li>
-      <li class="nav-item">
-        <button type="button" class="btn btn-outline-secondary" *ngIf="!isLogged()" routerLink="/signup">Sign Up</button>
-      </li>
-      <li class="nav-item">
-        <button type="button" class="btn btn-outline-secondary" *ngIf="isLogged()" (click)="logout()">Log Out</button>
-      </li>
+
+    </ul>
+
+    <ul class="navbar-nav ml-auto mt-3">
+      <p>
+        <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          <img src="assets/settings.svg">
+        </a>
+      </p>
     </ul>
   </div>
 </nav>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body float-right">
+    <li class="dropdown-item" *ngIf="!isLogged()">
+      <div type="button" routerLink="/login">Log In</div>
+    </li>
+    <li class="dropdown-item" *ngIf="!isLogged()" >
+      <div type="button" routerLink="/signup">Sign Up</div>
+    </li>
+    <li class="dropdown-item" *ngIf="isLogged()">
+      <a type="button" (click)="logout()">Log Out</a>
+    </li>
+  </div>
+</div>
 
 
 <router-outlet>

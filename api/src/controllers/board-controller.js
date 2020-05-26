@@ -33,10 +33,14 @@ function removeCardsFromBoard(board) {
 
 //Retorna um board
 exports.get = async (req, res) => {
-    Board.findOne({ _id: req.params.id })
+    let response = { todo: [], doing: [], done: [] }
+
+    Card.find({ board: req.params.id })
     .then(data => {
-        console.log('data do board: ', data);
-        res.status(200).send(data); 
+        response.todo = data.filter(card => card.status == 'todo');
+        response.doing = data.filter(card => card.status == 'doing');
+        response.done = data.filter(card => card.status == 'done');
+        res.status(200).send(response); //ok 
     }).catch(error => {
         res.status(400).send(error)
     });
@@ -70,7 +74,7 @@ exports.post = async (req, res) => {
 //Altera título do board
 exports.put = (req, res) => {
     if(!req.body.title)
-        res.status(400).send({ message: 'É necessário um título' })
+        return res.status(400).send({ message: 'É necessário um título' })
     Board.findByIdAndUpdate(req.params.id, { $set: { title : req.body.title } }, { new:true })
     .then(data => {
         console.log(data)
@@ -88,7 +92,7 @@ exports.delete = (req, res) => {
        console.log('then do delete', data._id, data.owner);
        await removeBoardToUser(data);
        await removeCardsFromBoard(data);
-       res.status(200).send({message: 'Board removido com sucesso', data: data}); 
+       res.status(200).send({message: 'Board deletado com sucesso!', data: data}); 
    }).catch(error => {
        res.status(400).send({message: 'Falha ao remover board', data: error})
    });

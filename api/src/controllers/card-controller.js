@@ -6,8 +6,6 @@ const Card = mongoose.model('Card');
 const Board = mongoose.model('Board');
 
 function addCardToBoard(card) {
-    console.log('id do board:   ',card.board);
-    console.log('id do card:    ', card._id);
 	return Board.findByIdAndUpdate(card.board, {$push: {cards: card._id}}, {upsert: true},
         function (err, data) {
             if (err) throw err;
@@ -30,21 +28,6 @@ exports.getOne = async (req, res) => {
     .then(data => {
         console.log(data);
         res.status(200).send(data); //ok 
-    }).catch(error => {
-        res.status(400).send(error)
-    });
-};
-
-//Retorna todos os cards de um board
-exports.getAll = async (req, res) => {
-    let response = { todo: [], doing: [], done: [] }
-
-    Card.find({ board: req.body.board_id })
-    .then(data => {
-        response.todo = data.filter(card => card.status == 'todo');
-        response.doing = data.filter(card => card.status == 'doing');
-        response.done = data.filter(card => card.status == 'done');
-        res.status(200).send(response); //ok 
     }).catch(error => {
         res.status(400).send(error)
     });

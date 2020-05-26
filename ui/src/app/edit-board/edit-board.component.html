@@ -1,0 +1,15 @@
+<form>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Board Title:</h5>
+   </div>
+   <div class="modal-body">
+       <input required type="text" [class.red]="titleControl.invalid && flag" class="form-control" name="title" [(ngModel)]="board_title" #titleControl="ngModel">
+        <span class="help-block text-danger" *ngIf="titleControl.invalid && flag">
+            Title is required
+        </span>
+   </div>
+    <div class="modal-footer">
+       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+       <button type="submit" class="btn btn-outline-dark" (click)="edit()" id="save">Save</button>
+   </div>
+</form>
