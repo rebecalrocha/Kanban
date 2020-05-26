@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule }   from '@angular/forms';
 import { CreateCardComponent } from './create-card/create-card.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SignupComponent,
     KanbanComponent,
     EditCardComponent,
-    CreateCardComponent
+    CreateCardComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

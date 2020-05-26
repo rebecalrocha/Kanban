@@ -3,6 +3,8 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EditCardComponent } from '../edit-card/edit-card.component';
 import { CreateCardComponent } from '../create-card/create-card.component';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -13,11 +15,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 export class KanbanComponent implements OnInit {
 
-  constructor(private http: HttpClient, private modalService: NgbModal) { }
+  constructor(private router: Router, private authentication: AuthService, private http: HttpClient, private modalService: NgbModal) { }
 
   currentUser = JSON.parse(localStorage.getItem('currentUser'));
   url = 'http://localhost:3000'; 
   todo=[]; doing=[]; done=[];
+  board_title: string;
 
   ngOnInit(): void {
     this.getCards();
@@ -29,7 +32,13 @@ export class KanbanComponent implements OnInit {
       data.todo.map(card => { this.todo.push(card); });
       data.doing.map(card => { this.doing.push(card); });
       data.done.map(card => { this.done.push(card); });
+    },
+    (err) => {
+      this.authentication.logout();
+      this.router.navigate(['/login'])
     });
+
+    this.board_title = 'board title amigos';
   }
 
   createCard(status) {    

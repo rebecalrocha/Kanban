@@ -8,7 +8,7 @@ const userSchema = new Schema ({
     name: { type: String, required: [true,'É necessário possuir um nome'] },
     email: { type: String, required: [true,'É necessário possuir um email válido'] },
     password: { type: String, required: [true,'É necessário possuir uma senha'] },
-    cards: [ { type: Schema.Types.ObjectId, ref: 'Card' } ]
+    boards: [ { type: Schema.Types.ObjectId, ref: 'Board' } ]
 });
 
 module.exports = mongoose.model('User', userSchema);

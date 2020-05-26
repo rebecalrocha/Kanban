@@ -12,6 +12,7 @@ mongoose.connect(config.url, { useUnifiedTopology: true, useNewUrlParser: true, 
 
 //Carrega os Models
 require('./models/user');
+require('./models/board');
 require('./models/card');
 
 //Carrega as Rotas

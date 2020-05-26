@@ -28,3 +28,7 @@
 .icon:hover{
     cursor: pointer;
 }
+
+.navbar{
+    background:rgba(211,211,211, 0.6)
+}

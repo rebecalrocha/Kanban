@@ -1,0 +1,10 @@
+<div class="rounded column mx-5 d-flex flex-wrap">  <!-- task TO DO -->
+
+    <div style="width: 300px; max-width: 300px; height:100px;" class="board flex-fill p-2 mx-5 my-5 text-break" *ngFor="let item of boards" (click)="goToBoard(item._id)">
+        {{item.title}}
+    </div>
+    <a style="width: 300px; max-width: 300px; height:100px; display: table;" class="board flex-fill p-2 mx-5 my-5 text-center"  (click)="goToBoard('item._id')">
+        <span style="display: table-cell; vertical-align: middle;">New Board +</span>
+    </a>
+
+</div>

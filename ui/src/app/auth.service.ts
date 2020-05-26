@@ -18,7 +18,6 @@ export class AuthService {
             .pipe(
                 map((data: any)  => {
                     let token = data && data.token;
-                    console.log(data);
                     if (token) {
                         this.token = token;
                         localStorage.setItem('currentUser', JSON.stringify({ token: token }));

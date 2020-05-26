@@ -1,24 +1,23 @@
 'use strict'
 
 const mongoose = require('mongoose');
-const authService = require('../auth-service');
 
 const Card = mongoose.model('Card');
-const User = mongoose.model('User');
+const Board = mongoose.model('Board');
 
-function addCardToUser(card) {
-    console.log('id do user:   ',card.owner);
+function addCardToBoard(card) {
+    console.log('id do board:   ',card.board);
     console.log('id do card:    ', card._id);
-	return User.findByIdAndUpdate(card.owner, {$push: {cards: card._id}}, {upsert: true},
+	return Board.findByIdAndUpdate(card.board, {$push: {cards: card._id}}, {upsert: true},
         function (err, data) {
             if (err) throw err;
             console.log('card adicionado: ', data); 
         });
 };
 
-function removeCardToUser(card) {
+function removeCardToBoard(card) {
     console.log(card._id, card.owner);
-    return User.findByIdAndDelete(card.owner, {$pop: {cards: card._id}}, 
+    return Board.findByIdAndUpdate(card.board, {$pull: {cards: card._id}}, 
         function (err, data){
             if (err) throw err;
             console.log('card deletado: ', data);
@@ -36,13 +35,11 @@ exports.getOne = async (req, res) => {
     });
 };
 
-//Retorna todos os cards de um user
+//Retorna todos os cards de um board
 exports.getAll = async (req, res) => {
-    const token = req.headers['x-api-key'];
-    const auth = await authService.decodeToken(token);
-
     let response = { todo: [], doing: [], done: [] }
-    Card.find({ owner: auth.user_id })
+
+    Card.find({ board: req.body.board_id })
     .then(data => {
         response.todo = data.filter(card => card.status == 'todo');
         response.doing = data.filter(card => card.status == 'doing');
@@ -55,17 +52,14 @@ exports.getAll = async (req, res) => {
 
 //Cria novo card
 exports.post = async (req, res) => {
-    const token = req.headers['x-api-key'];
-    const auth = await authService.decodeToken(token);
-
     let card = new Card();
     card.description = req.body.description; //informação do card
     card.status = req.body.status;
-    card.owner = auth.user_id;
+    card.board = req.body.board_id;
     
     card.save()
     .then(data => {
-        addCardToUser(data);
+        addCardToBoard(data);
         res.status(201).send({ message: 'Card registrado com sucesso', data: data }); //created 
     }).catch(error => {
         res.status(400).send({ message: 'Falha ao registrar card', data: error })
@@ -89,7 +83,7 @@ exports.put = async (req, res) => {
     .then(data => {
         res.status(201).send({ message: 'Card editado com sucesso', data: data });  
     }).catch(error => {
-        res.status(400).send({ message: 'Falha ao editado card', data: error })
+        res.status(400).send({ message: 'Falha ao editar card', data: error })
     });
     }
     
@@ -99,7 +93,7 @@ exports.put = async (req, res) => {
 exports.delete = (req, res) => {
      Card.findByIdAndDelete(req.params.id)
     .then(async data => {
-        await removeCardToUser(data);
+        await removeCardToBoard(data);
         res.status(200).send({message: 'Card removido com sucesso', data: data}); 
     }).catch(error => {
         res.status(400).send({message: 'Falha ao remover card', data: error})
