@@ -13,42 +13,35 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
     <ul class="navbar-nav ml-auto">
 
+      <div class="icon btn-group">
+        <a class="icon dropdown-toggle" style="color:gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="assets/people.svg">
+        </a>
+        <div class="dropdown-menu dropdown-menu-right rounded" style="min-width: 6rem;">
+          <div class="card-header text-center font-weight-bold" *ngIf="isLogged()">{{name}}</div>
+          <button class="dropdown-item" *ngIf="!isLogged()" type="button" routerLink="/login">Log In</button>
+          <button class="dropdown-item" *ngIf="!isLogged()" type="button" routerLink="/signup">Sign Up</button>
+          <button class="dropdown-item" *ngIf="isLogged()" type="button" routerLink="/home">Boards</button>
+          <button class="dropdown-item" *ngIf="isLogged()" type="button" (click)="logout()">Settings</button>
+          <button class="dropdown-item" *ngIf="isLogged()" type="button" (click)="logout()">Log Out</button>
+        </div>
+      </div>
+
     </ul>
 
-    <ul class="navbar-nav ml-auto mt-3">
-      <p>
-        <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-          <img src="assets/settings.svg">
-        </a>
-      </p>
-    </ul>
-  </div>
 </nav>
-<div class="collapse" id="collapseExample">
-  <div class="card card-body float-right">
-    <li class="dropdown-item" *ngIf="!isLogged()">
-      <div type="button" routerLink="/login">Log In</div>
-    </li>
-    <li class="dropdown-item" *ngIf="!isLogged()" >
-      <div type="button" routerLink="/signup">Sign Up</div>
-    </li>
-    <li class="dropdown-item" *ngIf="isLogged()">
-      <a type="button" (click)="logout()">Log Out</a>
-    </li>
-  </div>
-</div>
 
 
 <router-outlet>
-<div class="col-12">
-  <div class="alert alert-{{message.type}} alert-dismissible fade show" role="alert" *ngFor="let message of messages(); let i = index">
-    {{ message.text }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="remove(i)">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+
+<div class="alert alert-{{message.type}} alert-dismissible fade show mt-2 mx-2" role="alert" *ngFor="let message of messages(); let i = index">
+  {{ message.text }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="remove(i)">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
+
 </router-outlet>

@@ -1,13 +1,23 @@
 <nav class="navbar navbar-dark" style="min-width: 100%">
-  <a class="navbar-brand">{{board_title}}</a>
+  <a class="navbar-brand font-weight-bold">{{board_title}}</a>
 
-  <div class="btn-group">
-    <a class="icon dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-    <div class="dropdown-menu dropdown-menu-right" style="min-width: 8rem;">
+  <div class="icon dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <img src="assets/three-dots.svg">
+    <div class="dropdown-menu dropdown-menu-right rounded" style="min-width: 8rem;">
       <button class="dropdown-item" type="button" (click)="editTitle()">Edit Title</button>
       <button class="dropdown-item" type="button" (click)="deleteBoard()">Delete Board</button>
     </div>
   </div>
+<!-- 
+  <div class="text-right">
+    <a class="icon mr-2" (click)="editTitle()">
+      <img src="assets/edit.svg">
+    </a>
+    <a class="icon" (click)="deleteBoard()"> 
+      <img src="assets/trash.svg">
+    </a>
+  </div> -->
+
 </nav>
 
 <div class="board my-5" cdkDropListGroup>

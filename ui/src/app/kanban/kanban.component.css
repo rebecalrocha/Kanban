@@ -25,10 +25,11 @@
     cursor: grabbing;
 }
 
-.icon:hover{
-    cursor: pointer;
+.navbar{
+    background:rgba(211,211,211, 0.6);
+    box-shadow: 0px 0px 10px 1px gray;
 }
 
-.navbar{
-    background:rgba(211,211,211, 0.6)
+.dropdown-toggle::after {
+    display: none;
 }

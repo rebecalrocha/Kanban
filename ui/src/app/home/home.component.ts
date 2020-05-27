@@ -24,7 +24,6 @@ export class HomeComponent implements OnInit {
   getBoardsFromUser(){
     this.http.get(this.url+'/users', { headers: new HttpHeaders({'x-api-key': this.currentUser.token})})
     .subscribe((data: any) => {
-      console.log('data do get Cards: ', data)
       data.map(board => { this.boards.push(board); });
     },
     (err) => {
@@ -33,7 +32,6 @@ export class HomeComponent implements OnInit {
   };
 
   goToBoard(board){
-    console.log(board);
     this.router.navigate(['/kanban'], { queryParams: { board_id: board._id, board_title: board.title } })
   }
 

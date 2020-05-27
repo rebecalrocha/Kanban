@@ -1,4 +1,3 @@
-@import '../node_modules/bulma/bulma.sass';
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Lato:400,800,900');
 
 html, body {
@@ -31,3 +30,6 @@ body{
     cursor: default;
 }
 
+.icon:hover{
+  cursor: pointer;
+}

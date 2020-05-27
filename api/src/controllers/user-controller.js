@@ -7,26 +7,25 @@ const authService = require('../auth-service');
 const md5 = require('md5');
 
 //Pega todos os usuários
-// exports.get = (req, res) => {
-//     User.find({})
-//     .then(data => {
-//         res.status(200).send(data); 
-//     }).catch(error => {
-//         res.status(400).send(error)
-//     });
-// };
+exports.get = async (req, res) => {
+    const token = req.params.id;
+    const auth = await authService.decodeToken(token);
+
+    User.findOne({_id: auth.user_id })
+    .then(data => {
+        res.status(200).send(data); 
+    }).catch(error => {
+        res.status(400).send(error)
+    });
+};
 
 //Retorna boards do user
 exports.getAll = async (req, res) => {
     const token = req.headers['x-api-key'];
     const auth = await authService.decodeToken(token);
-    let user_id = auth.user_id;
-    console.log('user id:   ',user_id);
-    Board.find({ owner: user_id })
+
+    Board.find({ owner: auth.user_id })
     .then(data => {
-        // response.todo = data.filter(card => card.status == 'todo');
-        // response.doing = data.filter(card => card.status == 'doing');
-        // response.done = data.filter(card => card.status == 'done');
         res.status(200).send(data); //ok 
     }).catch(error => {
         res.status(400).send(error)

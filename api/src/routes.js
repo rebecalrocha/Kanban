@@ -9,7 +9,7 @@ const authService = require('./auth-service');
 
 router.post('/signup', userController.post);
 router.post('/login', userController.login);
-// router.get('/users', userController.get);
+router.get('/users/:id', userController.get);
 router.get('/users', userController.getAll);
 router.delete('/users/:id', authService.authorizeUser, userController.delete);
 
