@@ -1,10 +1,10 @@
 <div class="container-fluid">
-    <div class="m-5 d-flex flex-wrap justify-content-between">
+    <div class="m-5 d-flex flex-wrap justify-content-around">
 
-        <div style="min-width: 300px; height:100px;" class="board card rounded flex-fill p-2 m-5 font-weight-bold text-break" *ngFor="let item of boards" (click)="goToBoard(item)">
+        <div style="min-width: 300px; max-width: 300px; height:110px;" class="board card rounded flex-fill p-2 m-5 font-weight-bold text-break" *ngFor="let item of boards" (click)="goToBoard(item)">
             {{item.title}}
         </div>
-        <a style="max-width: 300px; height:100px; display: table;" class="board card rounded flex-fill p-2 m-5 text-center"  (click)="createBoard()" href="#">
+        <a style="min-width: 300px; max-width: 300px; height:110px; display: table;" class="board card rounded flex-fill p-2 m-5 text-center"  (click)="createBoard()" href="#">
             <span style="display: table-cell; vertical-align: middle;">New Board +</span>
         </a>
     

@@ -4,9 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 import {AuthGuard} from './auth.guard';
-import {MessageService} from './message.service';
+import {MessageService} from './services/message.service';
+
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { KanbanComponent } from './kanban/kanban.component';
@@ -20,6 +21,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
 import { CreateBoardComponent } from './create-board/create-board.component';
 import { EditBoardComponent } from './edit-board/edit-board.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { EditBoardComponent } from './edit-board/edit-board.component';
     CreateCardComponent,
     HomeComponent,
     CreateBoardComponent,
-    EditBoardComponent
+    EditBoardComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

@@ -25,6 +25,7 @@ export class KanbanComponent implements OnInit {
   todo=[]; doing=[]; done=[];
   board_id: string;
   board_title: string;
+  styleExp: string;
 
   ngOnInit(): void {
     this.activatedRoute.queryParamMap
@@ -34,6 +35,7 @@ export class KanbanComponent implements OnInit {
 
     });
     this.getCards();
+    this.styleExp = './assets/image.png';
   }
 
   getCards(){

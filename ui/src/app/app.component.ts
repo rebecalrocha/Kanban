@@ -12,18 +12,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class AppComponent implements OnInit {
   title = 'client-layer';
   name: string;
-  constructor(private authentication: AuthService, private router: Router, private message: MessageService, private http: HttpClient) {}
+  constructor(private authentication: AuthService, private router: Router, private message: MessageService) {}
   currentUser = JSON.parse(localStorage.getItem('currentUser'));
   url = 'http://localhost:3000';
 
   ngOnInit(): void {
-    this.http.get(this.url+'/users/'+this.currentUser.token)
-    .subscribe( (data: any) => {
-      console.log(data.name);
-      this.name = data.name;
-    }
-
-    );
+    this.name = this.currentUser.user_name;
   }
 
   messages() {
