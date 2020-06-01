@@ -7,21 +7,20 @@ const boardController = require('./controllers/board-controller');
 const cardController = require('./controllers/card-controller');
 const authService = require('./auth-service');
 
-router.post('/signup', userController.post);
+router.post('/signup', userController.signup);
 router.post('/login', userController.login);
-router.get('/users/:id', userController.get);
-router.get('/users', userController.getAll);
+router.get('/users', authService.authorizeUser, userController.get);
+router.put('/users/:id', authService.authorizeUser, userController.put);
 router.delete('/users/:id', authService.authorizeUser, userController.delete);
 
 router.post('/boards', authService.authorizeUser, boardController.post);
-router.get('/boards/:id', boardController.get);
-router.put('/boards/:id', boardController.put);
-router.delete('/boards/:id', boardController.delete);
+router.get('/boards/:id', authService.authorizeUser, boardController.get);
+router.put('/boards/:id', authService.authorizeUser, boardController.put);
+router.delete('/boards/:id', authService.authorizeUser, boardController.delete);
 
-// router.get('/cards', cardController.getAll);
-router.post('/cards', cardController.post);
-router.get('/cards/:id', cardController.getOne); 
-router.put('/cards/:id', cardController.put);
-router.delete('/cards/:id', cardController.delete);
+router.post('/cards', authService.authorizeUser, cardController.post);
+router.get('/cards/:id', authService.authorizeUser, cardController.getOne); 
+router.put('/cards/:id', authService.authorizeUser, cardController.put);
+router.delete('/cards/:id', authService.authorizeUser, cardController.delete);
 
 module.exports = router;

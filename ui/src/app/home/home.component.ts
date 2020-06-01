@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CreateBoardComponent } from '../create-board/create-board.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
 
   boards = [];
 
-  constructor(private router: Router, private modalService: NgbModal, private http: HttpClient) { }
+  constructor(private router: Router, private modalService: NgbModal, private userService: UserService) { }
   currentUser = JSON.parse(localStorage.getItem('currentUser'));
   url = 'http://localhost:3000'; 
 
@@ -22,12 +22,13 @@ export class HomeComponent implements OnInit {
   }
 
   getBoardsFromUser(){
-    this.http.get(this.url+'/users', { headers: new HttpHeaders({'x-api-key': this.currentUser.token})})
+    this.userService.getBoards()
     .subscribe((data: any) => {
       data.map(board => { this.boards.push(board); });
     },
     (err) => {
       console.log('erro do get Cards: ',err);
+      this.router.navigate(['/login']);
     })
   };
 

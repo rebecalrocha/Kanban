@@ -4,10 +4,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EditCardComponent } from '../edit-card/edit-card.component';
 import { CreateCardComponent } from '../create-card/create-card.component';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MessageService } from '../message.service';
+import { MessageService } from '../services/message.service';
 import { EditBoardComponent } from '../edit-board/edit-board.component';
+import { BoardService } from '../services/board.service';
+import { CardService } from '../services/card.service';
 
 @Component({
   selector: 'app-kanban',
@@ -17,30 +19,26 @@ import { EditBoardComponent } from '../edit-board/edit-board.component';
 
 export class KanbanComponent implements OnInit {
 
-  constructor(private router: Router, private authentication: AuthService, private http: HttpClient, private modalService: NgbModal, 
+  constructor(private router: Router, private authentication: AuthService, private boardService: BoardService, private cardService: CardService, private modalService: NgbModal, 
     private activatedRoute: ActivatedRoute, private message: MessageService) { }
 
-  currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  url = 'http://localhost:3000'; 
   todo=[]; doing=[]; done=[];
   board_id: string;
   board_title: string;
-  styleExp: string;
 
   ngOnInit(): void {
     this.activatedRoute.queryParamMap
     .subscribe((params: any) => {
        this.board_id = params.params.board_id;
        this.board_title = params.params.board_title;
+       console.log('board id e board title: ',this.board_id, this.board_title);
 
     });
     this.getCards();
-    this.styleExp = './assets/image.png';
   }
 
   getCards(){
-    console.log('board_id e board_title passados como parâmetro: ', this.board_id, this.board_title);
-    this.http.get(this.url+'/boards/'+this.board_id)
+    this.boardService.getBoard(this.board_id)
     .subscribe((data: any) => {
       console.log('data do get Cards: ', data)
       data.todo.map(card => { this.todo.push(card); });
@@ -49,8 +47,8 @@ export class KanbanComponent implements OnInit {
     },
     (err) => {
       console.log('erro do get Cards: ',err);
-      this.authentication.logout();
-      this.router.navigate(['/login'])
+      // this.authentication.logout();
+      // this.router.navigate(['/login'])
     });
   }
 
@@ -79,7 +77,7 @@ export class KanbanComponent implements OnInit {
   }
 
   deleteCard(item){
-    this.http.delete(this.url+'/cards/'+item._id, { headers: new HttpHeaders({'x-api-key': this.currentUser.token})})
+    this.cardService.deleteCard(item._id)
     .subscribe((data: any) => {
       console.log(data);
     });
@@ -117,8 +115,8 @@ export class KanbanComponent implements OnInit {
         status = "done";
 
       let body = {"status": status}
+      this.cardService.editCardStatus(card_id, body);
 
-      this.http.put(this.url+'/cards/'+card_id, body, { headers: new HttpHeaders({'x-api-key': this.currentUser.token})}).subscribe();
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
     }
   }
@@ -130,7 +128,7 @@ export class KanbanComponent implements OnInit {
   }
 
   deleteBoard(){
-    this.http.delete(this.url+'/boards/'+this.board_id)
+    this.boardService.deleteBoard(this.board_id)
     .subscribe((data: any) => {
       console.log('card editado: ', data)
       this.message.createMessage('primary', data.message);

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CardService } from '../services/card.service';
 
 @Component({
   selector: 'app-edit-card',
@@ -9,18 +9,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class EditCardComponent {
 
-  constructor(private http: HttpClient, public activeModal: NgbActiveModal) { }
+  constructor(private cardService: CardService, public activeModal: NgbActiveModal) { }
 
   @Input() card;
-  currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  url = 'http://localhost:3000';
   flag = false;
 
   edit(){
     this.flag = true;
     let body = {"description": this.card.description }
-    
-    this.http.put(this.url+'/cards/'+this.card._id, body, { headers: new HttpHeaders({'x-api-key': this.currentUser.token})})
+    this.cardService.editCardDescription(this.card._id, body)
       .subscribe((data: any) => {
         console.log('data: ', data);
         this.activeModal.dismiss('Cross click');

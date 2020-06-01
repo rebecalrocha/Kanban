@@ -6,21 +6,8 @@ const Board = mongoose.model('Board');
 const authService = require('../auth-service');
 const md5 = require('md5');
 
-//Pega todos os usuários
-exports.get = async (req, res) => {
-    const token = req.params.id;
-    const auth = await authService.decodeToken(token);
-
-    User.findOne({_id: auth.user_id })
-    .then(data => {
-        res.status(200).send(data); 
-    }).catch(error => {
-        res.status(400).send(error)
-    });
-};
-
 //Retorna boards do user
-exports.getAll = async (req, res) => {
+exports.get = async (req, res) => {
     const token = req.headers['x-api-key'];
     const auth = await authService.decodeToken(token);
 
@@ -33,7 +20,7 @@ exports.getAll = async (req, res) => {
 };
 
 //Cria novo usuário
-exports.post = async (req, res) => {
+exports.signup = async (req, res) => {
     let user = await User.find({ email: req.body.email });
 
     if(user.length) 
@@ -65,18 +52,35 @@ exports.login = async (req, res) => {
         }
 
         const token = await authService.generateToken({user_id: user._id});
-        res.status(201).send({ token: token, message: 'Usuário logado com sucesso!' });
+        res.status(201).send({ token: token, message: 'Usuário logado com sucesso!', user: user });
 
     } catch (error) {
         res.status(400).send({ message: 'Falha ao logar usuário', data: error })
     }
 };
 
+//Edit name
+exports.put = async (req, res) => {
+    if(!req.body.name) {
+        res.status(400).send({ message: 'User must have a name.' })
+        return;
+    }
+
+    await User.findByIdAndUpdate(req.params.id, { $set: {name: req.body.name}}, {upsert: true})
+    .then(data => {
+        console.log(data)
+        res.status(201).send({ message: 'Nome editado com sucesso', data: data });  
+    }).catch(error => {
+        console.log(error);
+        res.status(400).send({ message: 'Falha ao editar nome do usuário', data: error })
+    });
+}
+
 //Deleta usuário
 exports.delete = (req, res) => {
     User.findByIdAndDelete(req.params.id)
     .then(data => {
-        res.status(200).send({message: 'Usuário removido com sucesso', data: data}); //ok
+        res.status(200).send({message: 'Usuário removido com sucesso!', data: data}); //ok
     }).catch(error => {
         res.status(400).send({message: 'Falha ao remover usuário', error: error})
     });

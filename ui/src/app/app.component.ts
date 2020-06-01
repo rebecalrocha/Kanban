@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
-import { MessageService } from './message.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
+import { MessageService } from './services/message.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +9,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'client-layer';
   name: string;
   constructor(private authentication: AuthService, private router: Router, private message: MessageService) {}
   currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  url = 'http://localhost:3000';
+
 
   ngOnInit(): void {
     this.name = this.currentUser.user_name;

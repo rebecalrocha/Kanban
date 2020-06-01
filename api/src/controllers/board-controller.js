@@ -77,10 +77,10 @@ exports.put = (req, res) => {
         return res.status(400).send({ message: 'É necessário um título' })
     Board.findByIdAndUpdate(req.params.id, { $set: { title : req.body.title } }, { new:true })
     .then(data => {
-        console.log(data)
+        console.log('encontrei o board para editar: ',data)
         res.status(201).send({ message: 'Título do board editado com sucesso', data: data });  
     }).catch(error => {
-        console.log(error);
+        console.log('erro ao alterar:',error);
         res.status(400).send({ message: 'Falha ao editar título do board', data: error })
     });
 };

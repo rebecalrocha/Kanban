@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BoardService } from '../services/board.service';
 
 @Component({
   selector: 'app-edit-board',
@@ -10,17 +10,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class EditBoardComponent {
 
-  constructor(private router: Router, private http: HttpClient, public activeModal: NgbActiveModal) { }
+  constructor(private router: Router, private boardService: BoardService, public activeModal: NgbActiveModal) { }
   @Input() board_id; board_title;
-  currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  url = 'http://localhost:3000';
-  title: string;
   flag = false;
 
   edit(){
     this.flag = true;
     let body = { 'title': this.board_title };
-    this.http.put(this.url+'/boards/'+this.board_id, body)
+    this.boardService.editTitle(this.board_id, body)
     .subscribe((data: any) => {
       console.log('board editado:  ', data);
       this.activeModal.dismiss('Cross click');
