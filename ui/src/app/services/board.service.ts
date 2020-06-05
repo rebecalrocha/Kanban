@@ -8,16 +8,18 @@ export class BoardService {
     url = 'http://localhost:3000/boards'
 
     createBoard(body){
-        console.log(body);
         return this.http.post(this.url, body, { headers: new HttpHeaders({'x-api-key': this.currentUser.token})})
     }
 
     getBoard(boardId){
-        console.log('boardId:   ',boardId)
         return this.http.get(this.url+'/'+boardId, { headers: new HttpHeaders({'x-api-key': this.currentUser.token})})
     }
 
     editTitle(boardId, body){
+        return this.http.put(this.url+'/'+boardId, body, { headers: new HttpHeaders({'x-api-key': this.currentUser.token})})
+    }
+
+    editTheme(boardId, body){
         return this.http.put(this.url+'/'+boardId, body, { headers: new HttpHeaders({'x-api-key': this.currentUser.token})})
     }
 

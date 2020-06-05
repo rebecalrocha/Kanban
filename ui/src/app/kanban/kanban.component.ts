@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, Inject } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EditCardComponent } from '../edit-card/edit-card.component';
 import { CreateCardComponent } from '../create-card/create-card.component';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,16 +9,18 @@ import { MessageService } from '../services/message.service';
 import { EditBoardComponent } from '../edit-board/edit-board.component';
 import { BoardService } from '../services/board.service';
 import { CardService } from '../services/card.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-kanban',
   templateUrl: './kanban.component.html',
-  styleUrls: ['./kanban.component.css']
+  styleUrls: ['./kanban.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class KanbanComponent implements OnInit {
 
-  constructor(private router: Router, private authentication: AuthService, private boardService: BoardService, private cardService: CardService, private modalService: NgbModal, 
+  constructor(@Inject(DOCUMENT) private _document, private router: Router, private authentication: AuthService, private boardService: BoardService, private cardService: CardService, private modalService: NgbModal, 
     private activatedRoute: ActivatedRoute, private message: MessageService) { }
 
   todo=[]; doing=[]; done=[];
@@ -30,25 +31,44 @@ export class KanbanComponent implements OnInit {
     this.activatedRoute.queryParamMap
     .subscribe((params: any) => {
        this.board_id = params.params.board_id;
-       this.board_title = params.params.board_title;
-       console.log('board id e board title: ',this.board_id, this.board_title);
-
     });
     this.getCards();
+  }
+
+  ngOnDestroy() {
+    // remove the class form body tag
+    this._document.body.classList = [];
+  }
+
+
+  theme(img){
+
+    this._document.body.classList = [];
+    let body = { 'theme': img };
+    this.boardService.editTheme(this.board_id, body)
+    .subscribe((data: any) => {
+      console.log('board editado:  ', data);
+    });   
+
+    this._document.body.classList.add('bodybg-'+img);
+
+
   }
 
   getCards(){
     this.boardService.getBoard(this.board_id)
     .subscribe((data: any) => {
-      console.log('data do get Cards: ', data)
-      data.todo.map(card => { this.todo.push(card); });
-      data.doing.map(card => { this.doing.push(card); });
-      data.done.map(card => { this.done.push(card); });
+      console.log('data:  ', data)
+      this.board_title = data.title;
+      this.theme(data.theme);
+      data.task.todo.map(card => { this.todo.push(card); });
+      data.task.doing.map(card => { this.doing.push(card); });
+      data.task.done.map(card => { this.done.push(card); });
     },
     (err) => {
       console.log('erro do get Cards: ',err);
-      // this.authentication.logout();
-      // this.router.navigate(['/login'])
+      this.authentication.logout();
+      this.router.navigate(['/login'])
     });
   }
 
@@ -79,7 +99,6 @@ export class KanbanComponent implements OnInit {
   deleteCard(item){
     this.cardService.deleteCard(item._id)
     .subscribe((data: any) => {
-      console.log(data);
     });
 
     //remove card da página
@@ -130,7 +149,6 @@ export class KanbanComponent implements OnInit {
   deleteBoard(){
     this.boardService.deleteBoard(this.board_id)
     .subscribe((data: any) => {
-      console.log('card editado: ', data)
       this.message.createMessage('primary', data.message);
       this.router.navigate(['/home'])
     },

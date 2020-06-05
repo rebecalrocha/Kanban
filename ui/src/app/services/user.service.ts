@@ -15,9 +15,10 @@ export class UserService {
         return this.http.get(this.url+'/users', { headers: new HttpHeaders({'x-api-key': this.currentUser.token})})
     }
 
-    editName(name){
-        return this.http.put(this.url+'/users', name, { headers: new HttpHeaders({'x-api-key': this.currentUser.token})})
-
+    editName(id, body){
+        console.log(body);
+        return this.http.put(this.url+'/users/'+id, body, { headers: new HttpHeaders({'x-api-key': this.currentUser.token})})
+        //não atualiza até faça logout e login
     }
 
     deleteUser(id) {

@@ -1,8 +1,25 @@
-.board{
-    background:rgba(211,211,211, 0.6);
-}
 
 .board:hover{
-    background:rgba(211,211,211);
+    filter: brightness(80%);
     cursor: pointer;
+}
+
+.theme-default {
+    background-image: url(../background/image.png);
+    background-size: 300px;
+}
+
+.theme-light {
+    background-image: url(../background/light.jpg);
+    background-size: 300px;
+}
+
+.theme-rainbow {
+    background-image: url(../background/rainbow.jpg);
+    background-size: 300px;
+}
+
+.theme-blue {
+    background-image: url(../background/blue.jpg);
+    background-size: 300px;
 }

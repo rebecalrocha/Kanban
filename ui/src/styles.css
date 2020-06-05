@@ -6,11 +6,6 @@ html, body {
     
 }
 
-body{
-    background-image: url(./assets/image.png);
-}
-
-
 .wrapper {
     display: flex;
     align-items: center;
@@ -19,15 +14,14 @@ body{
     margin-top: 20px;
   }
     
-  #content {
-    margin: 15% 35%;
-    border: 200px auto;
-    text-align: center;
-    
-  }
+#content {
+  margin: 15% 35%;
+  border: 200px auto;
+  text-align: center;   
+}
 
-  .text:hover{
-    cursor: default;
+.text:hover{
+  cursor: default;
 }
 
 .icon:hover{

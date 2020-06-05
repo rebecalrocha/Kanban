@@ -1,4 +1,4 @@
-.board {
+.task-container {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -30,6 +30,22 @@
     box-shadow: 0px 0px 10px 1px gray;
 }
 
-.dropdown-toggle::after {
+/* .dropdown-toggle::after {
     display: none;
+} */
+
+.bodybg-default {
+    background-image: url(../background/image.png);
+}
+
+.bodybg-light {
+    background-image: url(../background/light.jpg);
+}
+
+.bodybg-rainbow {
+    background-image: url(../background/rainbow.jpg);
+}
+
+.bodybg-blue {
+    background-image: url(../background/blue.jpg);
 }

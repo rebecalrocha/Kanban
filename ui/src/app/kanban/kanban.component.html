@@ -1,16 +1,23 @@
 <nav class="navbar navbar-dark">
   <a class="text navbar-brand font-weight-bold">{{board_title}}</a>
 
-  <div class="icon dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <div class="icon dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
     <img src="assets/three-dots.svg">
-    <div class="dropdown-menu dropdown-menu-right rounded" style="min-width: 8rem;">
+    <div class="dropdown-menu dropdown-menu-right rounded" aria-labelledby="dropdownMenuButton" style="min-width: 8rem;">
       <button class="dropdown-item" type="button" (click)="editTitle()">Edit Title</button>
       <button class="dropdown-item" type="button" (click)="deleteBoard()">Delete Board</button>
+      <!-- <a class="icon dropdown-toggle" data-toggle="dropdown" id="theme" aria-haspopup="true" aria-expanded="false">Theme</a>
+      <div class="dropdown-menu rounded" aria-labelledby="theme" style="min-width: 6rem;"> -->
+        <button class="dropdown-item" type="button" (click)="theme('default')">Default</button>
+        <button class="dropdown-item" type="button" (click)="theme('light')">Light</button>
+        <button class="dropdown-item" type="button" (click)="theme('rainbow')">Rainbow</button>
+        <button class="dropdown-item" type="button" (click)="theme('blue')">Blue</button>
+      <!-- </div> -->
     </div>
   </div>
 </nav>
 
-<div class="board my-5" cdkDropListGroup>
+<div class="task-container my-5" cdkDropListGroup>
 
   <div class="card rounded column mr-1 ml-5">  <!-- task TO DO -->
       <div class="card-header text-center">

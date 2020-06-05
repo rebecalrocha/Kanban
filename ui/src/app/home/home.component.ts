@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router, private modalService: NgbModal, private userService: UserService) { }
   currentUser = JSON.parse(localStorage.getItem('currentUser'));
   url = 'http://localhost:3000'; 
+  boardTheme = []
 
   ngOnInit(): void {
     this.getBoardsFromUser();
@@ -25,6 +26,8 @@ export class HomeComponent implements OnInit {
     this.userService.getBoards()
     .subscribe((data: any) => {
       data.map(board => { this.boards.push(board); });
+      data.map(board => { this.boardTheme.push(board.theme); });
+      console.log(this.boardTheme); //array com os themas
     },
     (err) => {
       console.log('erro do get Cards: ',err);
@@ -33,7 +36,7 @@ export class HomeComponent implements OnInit {
   };
 
   goToBoard(board){
-    this.router.navigate(['/kanban'], { queryParams: { board_id: board._id, board_title: board.title } })
+    this.router.navigate(['/kanban'], { queryParams: { board_id: board._id } })
   }
 
   createBoard(){
