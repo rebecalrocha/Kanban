@@ -20,8 +20,8 @@ import { DOCUMENT } from '@angular/common';
 
 export class KanbanComponent implements OnInit {
 
-  constructor(@Inject(DOCUMENT) private _document, private router: Router, private authentication: AuthService, private boardService: BoardService, private cardService: CardService, private modalService: NgbModal, 
-    private activatedRoute: ActivatedRoute, private message: MessageService) { }
+  constructor(@Inject(DOCUMENT) private _document, private router: Router, private authentication: AuthService, private boardService: BoardService, 
+  private cardService: CardService, private modalService: NgbModal, private activatedRoute: ActivatedRoute, private message: MessageService) { }
 
   todo=[]; doing=[]; done=[];
   board_id: string;
@@ -32,7 +32,7 @@ export class KanbanComponent implements OnInit {
     .subscribe((params: any) => {
       if (params.params.board_id)
        this.board_id = params.params.board_id;
-       this.board_title = params.params.board_title; //ao editar title
+       this.board_title = params.params.board_title; 
     });
     this.getCards();
   }
@@ -81,15 +81,8 @@ export class KanbanComponent implements OnInit {
 
       //insere novo card na página
       modalRef.componentInstance.event.subscribe(result => {
-        // if (status == "todo"){
-        //   this.todo.push(result);
-        // }
-        // else if (status == "doing"){
-        //   this.doing.push(result);
-        // } 
-        // else if (status == "done")
-        //   this.done.push(result);
-        this[status].push(result);
+      //adiciona card ao array todo, doing ou done
+      this[status].push(result);
       });
   }
 
@@ -103,20 +96,8 @@ export class KanbanComponent implements OnInit {
     .subscribe((data: any) => {
     });
 
-    //remove card da página
-    // if (item.status == "todo") {
-    //   let index = this.todo.findIndex(card => card._id == item._id);
-    //   this.todo.splice(index,1);
-    // }
-    // else if (item.status == "doing") {
-    //   let index = this.doing.findIndex(card => card._id == item._id);
-    //   this.doing.splice(index,1);
-    // }
-    // else if (item.status == "done") {
-    //   let index = this.done.findIndex(card => card._id == item._id);
-    //   this.done.splice(index,1);
-    // }
     let index = this[item.status].findIndex(card => card._id == item._id);
+    //deleta card do array todo, doing ou done
     this[item.status].splice(index,1);
 
   }
