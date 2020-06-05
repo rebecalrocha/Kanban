@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
     .subscribe((data: any) => {
       data.map(board => { this.boards.push(board); });
       data.map(board => { this.boardTheme.push(board.theme); });
-      console.log(this.boardTheme); //array com os themas
     },
     (err) => {
       console.log('erro do get Cards: ',err);

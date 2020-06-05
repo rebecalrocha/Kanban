@@ -1,20 +1,29 @@
 <nav class="navbar navbar-dark">
   <a class="text navbar-brand font-weight-bold">{{board_title}}</a>
 
-  <div class="icon dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
-    <img src="assets/three-dots.svg">
-    <div class="dropdown-menu dropdown-menu-right rounded" aria-labelledby="dropdownMenuButton" style="min-width: 8rem;">
+  <li class="dropdown" style="list-style-type:none;">
+    <a class="icon dropdown" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
+      <img src="assets/three-dots.svg">
+    </a>
+    <ul class="dropdown-menu  multi-level dropdown-menu-right">
       <button class="dropdown-item" type="button" (click)="editTitle()">Edit Title</button>
       <button class="dropdown-item" type="button" (click)="deleteBoard()">Delete Board</button>
-      <!-- <a class="icon dropdown-toggle" data-toggle="dropdown" id="theme" aria-haspopup="true" aria-expanded="false">Theme</a>
-      <div class="dropdown-menu rounded" aria-labelledby="theme" style="min-width: 6rem;"> -->
-        <button class="dropdown-item" type="button" (click)="theme('default')">Default</button>
-        <button class="dropdown-item" type="button" (click)="theme('light')">Light</button>
-        <button class="dropdown-item" type="button" (click)="theme('rainbow')">Rainbow</button>
-        <button class="dropdown-item" type="button" (click)="theme('blue')">Blue</button>
-      <!-- </div> -->
-    </div>
-  </div>
+      
+      <li class="dropdown-submenu">
+        <a class="icon dropdown-item" data-toggle="dropdown" data-display="static" id="dropdownThemeButton" aria-haspopup="true" aria-expanded="false">
+          Themes
+        </a>
+        <ul class="dropdown-menu">
+          <button class="dropdown-item" type="button" (click)="editTheme('default')">Default</button>
+          <button class="dropdown-item" type="button" (click)="editTheme('light')">Light</button>
+          <button class="dropdown-item" type="button" (click)="editTheme('rainbow')">Rainbow</button>
+          <button class="dropdown-item" type="button" (click)="editTheme('blue')">Blue</button>
+        </ul>
+      </li>
+
+    </ul>
+  </li>
+
 </nav>
 
 <div class="task-container my-5" cdkDropListGroup>

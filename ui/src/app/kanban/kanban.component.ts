@@ -41,18 +41,18 @@ export class KanbanComponent implements OnInit {
   }
 
 
-  theme(img){
+  getTheme(img){
+    this._document.body.classList.add('bodybg-'+img);
+  }
 
+  editTheme(img){
     this._document.body.classList = [];
     let body = { 'theme': img };
     this.boardService.editTheme(this.board_id, body)
     .subscribe((data: any) => {
       console.log('board editado:  ', data);
+      this._document.body.classList.add('bodybg-'+img);
     });   
-
-    this._document.body.classList.add('bodybg-'+img);
-
-
   }
 
   getCards(){
@@ -60,7 +60,8 @@ export class KanbanComponent implements OnInit {
     .subscribe((data: any) => {
       console.log('data:  ', data)
       this.board_title = data.title;
-      this.theme(data.theme);
+      console.log('title: ', this.board_title);
+      this.getTheme(data.theme);
       data.task.todo.map(card => { this.todo.push(card); });
       data.task.doing.map(card => { this.doing.push(card); });
       data.task.done.map(card => { this.done.push(card); });
