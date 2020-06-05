@@ -33,6 +33,13 @@ export class AppComponent implements OnInit {
     return false;
   }
 
+  atHome(): boolean{
+    if((window.location.pathname == '/home')){
+      return true;
+    }
+    return false;
+  }
+
   logout(){
     this.authentication.logout();
     this.router.navigate(['/login']);

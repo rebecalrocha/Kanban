@@ -20,12 +20,12 @@
         <a class="icon dropdown-toggle" style="color:gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span *ngIf="isLogged()"> <img src="assets/people.svg"> </span>
         </a>
-        <div class="dropdown-menu dropdown-menu-right rounded" style="min-width: 6rem;">
+        <div class="dropdown-menu dropdown-menu-right rounded" style="min-width: 6rem; cursor:default;">
           <div class="text text-center font-weight-bold" *ngIf="isLogged()">{{name}}</div>
           <div class="dropdown-divider"></div>
           <button class="dropdown-item" *ngIf="!isLogged()" type="button" routerLink="/login">Log In</button>
           <button class="dropdown-item" *ngIf="!isLogged()" type="button" routerLink="/signup">Sign Up</button>
-          <button class="dropdown-item" *ngIf="isLogged()" type="button" routerLink="/home">Boards</button>
+          <button class="dropdown-item" *ngIf="isLogged()" [class.disable]="atHome()" type="button" routerLink="/home">Boards</button>
           <button class="dropdown-item" *ngIf="isLogged()" type="button" routerLink="/settings">Settings</button>
           <button class="dropdown-item" *ngIf="isLogged()" type="button" (click)="logout()">Log Out</button>
         </div>
