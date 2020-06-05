@@ -81,14 +81,15 @@ export class KanbanComponent implements OnInit {
 
       //insere novo card na página
       modalRef.componentInstance.event.subscribe(result => {
-        if (status == "todo"){
-          this.todo.push(result);
-        }
-        else if (status == "doing"){
-          this.doing.push(result);
-        } 
-        else if (status == "done")
-          this.done.push(result);
+        // if (status == "todo"){
+        //   this.todo.push(result);
+        // }
+        // else if (status == "doing"){
+        //   this.doing.push(result);
+        // } 
+        // else if (status == "done")
+        //   this.done.push(result);
+        this[status].push(result);
       });
   }
 
@@ -103,18 +104,20 @@ export class KanbanComponent implements OnInit {
     });
 
     //remove card da página
-    if (item.status == "todo") {
-      let index = this.todo.findIndex(card => card._id == item._id);
-      this.todo.splice(index,1);
-    }
-    else if (item.status == "doing") {
-      let index = this.doing.findIndex(card => card._id == item._id);
-      this.doing.splice(index,1);
-    }
-    else if (item.status == "done") {
-      let index = this.done.findIndex(card => card._id == item._id);
-      this.done.splice(index,1);
-    }
+    // if (item.status == "todo") {
+    //   let index = this.todo.findIndex(card => card._id == item._id);
+    //   this.todo.splice(index,1);
+    // }
+    // else if (item.status == "doing") {
+    //   let index = this.doing.findIndex(card => card._id == item._id);
+    //   this.doing.splice(index,1);
+    // }
+    // else if (item.status == "done") {
+    //   let index = this.done.findIndex(card => card._id == item._id);
+    //   this.done.splice(index,1);
+    // }
+    let index = this[item.status].findIndex(card => card._id == item._id);
+    this[item.status].splice(index,1);
 
   }
 
@@ -124,18 +127,8 @@ export class KanbanComponent implements OnInit {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } 
     else { 
-      let card_id = event.item.data;
-      let status;
-
-      if(event.container.id == "todo")
-        status = "todo";
-      else if(event.container.id == "doing")
-        status = "doing";
-      else if (event.container.id == "done")
-        status = "done";
-
-      let body = {"status": status}
-      this.cardService.editCardStatus(card_id, body);
+      let body = {"status": event.container.id}
+      this.cardService.editCardStatus(event.item.data, body);
 
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
     }

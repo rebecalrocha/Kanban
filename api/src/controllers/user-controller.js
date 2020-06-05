@@ -68,7 +68,7 @@ exports.put = async (req, res) => {
 
     await User.findByIdAndUpdate(req.params.id, { $set: {name: req.body.name}}, {upsert: true})
     .then(data => {
-        console.log(data)
+        console.log(data.name, req.body.name);
         res.status(201).send({ message: 'Nome editado com sucesso', data: data });  
     }).catch(error => {
         console.log(error);

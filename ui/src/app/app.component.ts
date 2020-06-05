@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit(): void {
+    console.log('user name no app component:  ', this.currentUser.user_name);
     this.name = this.currentUser.user_name;
   }
 

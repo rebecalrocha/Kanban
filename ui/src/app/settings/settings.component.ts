@@ -11,7 +11,7 @@ import { MessageService } from '../services/message.service';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private userService: UserService, private message: MessageService, private router: Router,) { }
+  constructor(private userService: UserService, private message: MessageService, private router: Router) { }
   currentUser = JSON.parse(localStorage.getItem('currentUser'));
   name: string;
 
@@ -23,6 +23,9 @@ export class SettingsComponent implements OnInit {
     let body = {'name': this.name}
     this.userService.editName(this.currentUser.user_id,body)
     .subscribe((data: any) => {
+      console.log('data do change name: ', data);
+      this.message.createMessage('primary', data.message);
+      this.router.navigate(['/home'])
     }); 
   }
 
