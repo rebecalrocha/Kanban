@@ -19,7 +19,6 @@ export class EditBoardComponent {
     let body = { 'title': this.board_title };
     this.boardService.editTitle(this.board_id, body)
     .subscribe((data: any) => {
-      console.log('board editado:  ', data);
       this.activeModal.dismiss('Cross click');
       this.router.navigate(['/kanban'], { queryParams: { board_id: data.data._id, board_title: data.data.title } })
     });   

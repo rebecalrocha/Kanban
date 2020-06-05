@@ -34,8 +34,8 @@
     display: none;
 } */
 
-.bodybg-default {
-    background-image: url(../background/image.png);
+.bodybg-summer {
+    background-image: url(../background/summer.jpg);
 }
 
 .bodybg-light {
@@ -46,8 +46,8 @@
     background-image: url(../background/rainbow.jpg);
 }
 
-.bodybg-blue {
-    background-image: url(../background/blue.jpg);
+.bodybg-ocean {
+    background-image: url(../background/ocean.jpg);
 }
 
 .dropdown-submenu {

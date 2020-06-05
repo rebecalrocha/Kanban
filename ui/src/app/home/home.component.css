@@ -4,13 +4,13 @@
     cursor: pointer;
 }
 
-.theme-default {
-    background-image: url(../background/image.png);
+.theme-light {
+    background-image: url(../background/light.jpg);
     background-size: 300px;
 }
 
-.theme-light {
-    background-image: url(../background/light.jpg);
+.theme-summer {
+    background-image: url(../background/summer.jpg);
     background-size: 300px;
 }
 
@@ -19,7 +19,7 @@
     background-size: 300px;
 }
 
-.theme-blue {
-    background-image: url(../background/blue.jpg);
+.theme-ocean {
+    background-image: url(../background/ocean.jpg);
     background-size: 300px;
 }

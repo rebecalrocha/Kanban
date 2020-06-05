@@ -76,7 +76,7 @@ exports.post = async (req, res) => {
 
     board.title = req.body.title; 
     board.owner = auth.user_id;
-    board.theme = 'default';
+    board.theme = 'light';
     
     board.save()
     .then(data => {

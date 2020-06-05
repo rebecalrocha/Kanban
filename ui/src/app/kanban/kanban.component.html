@@ -14,10 +14,10 @@
           Themes
         </a>
         <ul class="dropdown-menu">
-          <button class="dropdown-item" type="button" (click)="editTheme('default')">Default</button>
           <button class="dropdown-item" type="button" (click)="editTheme('light')">Light</button>
+          <button class="dropdown-item" type="button" (click)="editTheme('summer')">Summer</button>
           <button class="dropdown-item" type="button" (click)="editTheme('rainbow')">Rainbow</button>
-          <button class="dropdown-item" type="button" (click)="editTheme('blue')">Blue</button>
+          <button class="dropdown-item" type="button" (click)="editTheme('ocean')">Ocean</button>
         </ul>
       </li>
 
@@ -29,8 +29,8 @@
 <div class="task-container my-5" cdkDropListGroup>
 
   <div class="card rounded column mr-1 ml-5">  <!-- task TO DO -->
-      <div class="card-header text-center">
-        <h5 class="text font-weight-bold">TO DO</h5>
+      <div class="text card-header text-center">
+        <h5 class="font-weight-bold">TO DO</h5>
       </div>
       <div class="card-body"
           cdkDropList
@@ -58,8 +58,8 @@
   </div>
 
   <div class="card rounded column mx-4">  <!-- task DOING -->
-      <div class="card-header text-center">
-          <h5 class="text font-weight-bold">DOING</h5>
+      <div class="text card-header text-center">
+          <h5 class="font-weight-bold">DOING</h5>
         </div>
       <div class="card-body"  
       cdkDragHandle 
@@ -88,8 +88,8 @@
   </div>
 
   <div class="card rounded column mr-5 ml-1">  <!-- task DONE -->
-      <div class="card-header text-center">
-          <h5 class="text font-weight-bold">DONE</h5>
+      <div class="text card-header text-center">
+          <h5 class="font-weight-bold">DONE</h5>
         </div>
       <div class="card-body"
           cdkDropList

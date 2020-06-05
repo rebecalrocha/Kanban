@@ -6,6 +6,10 @@ html, body {
     
 }
 
+body{
+  background-image: url(app/background/default.png);
+}
+
 .wrapper {
     display: flex;
     align-items: center;

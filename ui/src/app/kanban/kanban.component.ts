@@ -30,7 +30,9 @@ export class KanbanComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.queryParamMap
     .subscribe((params: any) => {
+      if (params.params.board_id)
        this.board_id = params.params.board_id;
+       this.board_title = params.params.board_title; //ao editar title
     });
     this.getCards();
   }
@@ -58,9 +60,7 @@ export class KanbanComponent implements OnInit {
   getCards(){
     this.boardService.getBoard(this.board_id)
     .subscribe((data: any) => {
-      console.log('data:  ', data)
       this.board_title = data.title;
-      console.log('title: ', this.board_title);
       this.getTheme(data.theme);
       data.task.todo.map(card => { this.todo.push(card); });
       data.task.doing.map(card => { this.doing.push(card); });
