@@ -15,7 +15,20 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log('user name no app component:  ', this.currentUser.user_name);
+    if(!this.currentUser){
+      this.logout();
+      return;
+      
+    }
+    this.authentication.verifyToken()
+    .subscribe((data: any) => {
+      console.log('data: ',data);
+    },
+    (err) => {
+      this.logout();
+      return;
+    });
+    console.log(this.currentUser);
     this.name = this.currentUser.user_name;
   }
 

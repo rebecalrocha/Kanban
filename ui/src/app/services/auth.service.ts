@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 
@@ -15,6 +15,7 @@ export class AuthService {
 
     login(email, password): Observable<any> {
         let body = {"email": email, "password": password}
+        console.log("body: ", body)
         return this.http.post('http://localhost:3000/login', body)
             .pipe(
                 map((data: any)  => {
@@ -32,4 +33,10 @@ export class AuthService {
         this.token = null;
         localStorage.removeItem('currentUser');
     }
+
+    verifyToken() {
+        console.log('dentro do service');
+        return this.http.get('http://localhost:3000/auth', { headers: new HttpHeaders({'x-api-key': this.token})})
+    }
+
 }

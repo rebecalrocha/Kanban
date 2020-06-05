@@ -5,10 +5,13 @@ const router = express.Router();
 const userController = require('./controllers/user-controller');
 const boardController = require('./controllers/board-controller');
 const cardController = require('./controllers/card-controller');
+const authController = require('./controllers/auth-controller');
 const authService = require('./auth-service');
 
-router.post('/signup', userController.signup);
-router.post('/login', userController.login);
+router.post('/signup', authController.signup);
+router.post('/login', authController.login);
+router.get('/auth', authController.get);
+
 router.get('/users', authService.authorizeUser, userController.get);
 router.put('/users/:id', authService.authorizeUser, userController.put);
 router.delete('/users/:id', authService.authorizeUser, userController.delete);

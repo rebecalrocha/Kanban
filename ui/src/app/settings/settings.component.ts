@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { MessageService } from '../services/message.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-settings',
@@ -11,7 +12,7 @@ import { MessageService } from '../services/message.service';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private userService: UserService, private message: MessageService, private router: Router) { }
+  constructor(private authentication: AuthService,private userService: UserService, private message: MessageService, private router: Router) { }
   currentUser = JSON.parse(localStorage.getItem('currentUser'));
   name: string;
 
@@ -33,6 +34,7 @@ export class SettingsComponent implements OnInit {
     this.userService.deleteUser(this.currentUser.user_id)
     .subscribe((data: any) => {
       this.message.createMessage('success', data.message);
+      this.authentication.logout();
       this.router.navigate(['/login']);
     });
   }

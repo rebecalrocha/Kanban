@@ -22,7 +22,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right rounded" style="min-width: 6rem; cursor:default;">
           <div class="text text-center font-weight-bold" *ngIf="isLogged()">{{name}}</div>
-          <div class="dropdown-divider"></div>
+          <div class="dropdown-divider" *ngIf="isLogged()"></div>
           <button class="dropdown-item" *ngIf="!isLogged()" type="button" routerLink="/login">Log In</button>
           <button class="dropdown-item" *ngIf="!isLogged()" type="button" routerLink="/signup">Sign Up</button>
           <button class="dropdown-item" *ngIf="isLogged()" [class.disable]="atHome()" type="button" routerLink="/home">Boards</button>

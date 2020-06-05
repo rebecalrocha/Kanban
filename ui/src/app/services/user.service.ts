@@ -12,7 +12,6 @@ export class UserService {
     }
 
     getBoards() {
-        console.log('current user:  ',this.currentUser);
         return this.http.get(this.url+'/users', { headers: new HttpHeaders({'x-api-key': this.currentUser.token})})
     }
 
