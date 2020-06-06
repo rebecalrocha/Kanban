@@ -36,7 +36,6 @@ export class AuthService {
     }
 
     verifyToken() {
-        return this.http.get('http://localhost:3000/auth', { headers: new HttpHeaders({'x-api-key': this.token}), responseType: 'text'});   
+        return this.http.get('http://localhost:3000/auth', { headers: new HttpHeaders({'x-api-key': this.token})});   
     }
-
 }

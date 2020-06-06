@@ -9,13 +9,13 @@ const md5 = require('md5');
 //Retorna boards do user
 exports.get = async (req, res) => {
     const token = req.headers['x-api-key'];
-    const auth = authService.decodeToken(token);
+    const auth = await authService.decodeToken(token);
 
     Board.find({ owner: auth.user_id })
     .then(data => {
         res.status(200).send(data); //ok 
     }).catch(error => {
-        res.status(400).send(error)
+        res.status(404).send(error)
     });
 };
 
@@ -28,10 +28,8 @@ exports.put = async (req, res) => {
 
     await User.findByIdAndUpdate(req.params.id, { $set: {name: req.body.name}}, {upsert: true})
     .then(data => {
-        console.log(data.name, req.body.name);
         res.status(201).send({ message: 'Nome editado com sucesso', data: data });  
     }).catch(error => {
-        console.log(error);
         res.status(400).send({ message: 'Falha ao editar nome do usuário', data: error })
     });
 }

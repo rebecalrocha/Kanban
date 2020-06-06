@@ -33,7 +33,6 @@ function removeCardsFromBoard(board) {
 
 //Retorna um board
 exports.get = async (req, res) => {
-    // let board = { id, title, theme, response }
     let id = req.params.id;
     let title;
     let theme;
@@ -47,7 +46,7 @@ exports.get = async (req, res) => {
         
 
     }).catch(error => {
-        console.log(error);
+        res.status(404).send(error)
     })
 
     Card.find({ board: req.params.id })
@@ -58,13 +57,12 @@ exports.get = async (req, res) => {
         board = { id, title, theme, task }
         res.status(200).send(board); //ok 
     }).catch(error => {
-        res.status(400).send(error)
+        res.status(404).send(error)
     });
 };
 
 //Cria novo board
 exports.post = async (req, res) => {
-    console.log('post create');
     let board = await Board.find({ title: req.body.title });
 
     if(board.length) 
@@ -81,7 +79,6 @@ exports.post = async (req, res) => {
     
     board.save()
     .then(data => {
-        console.log('data que vai para o addBoardToUser',data)
         addBoardToUser(data);
         res.status(201).send({ message: 'Board criado com sucesso', data: data }); //created 
     }).catch(error => {
@@ -95,10 +92,8 @@ exports.put = (req, res) => {
     if(req.body.theme){
         Board.findByIdAndUpdate(req.params.id, { $set: { theme : req.body.theme } }, { new:true })
         .then(data => {
-            console.log('encontrei o board para editar: ', data)
             res.status(201).send({ message: 'Tema editado com sucesso', data: data });  
         }).catch(error => {
-            console.log('erro ao alterar:', error);
             res.status(400).send({ message: 'Falha ao trocar o tema do board', data: error })
         });
     } 
@@ -106,10 +101,8 @@ exports.put = (req, res) => {
     if(req.body.title){ 
         Board.findByIdAndUpdate(req.params.id, { $set: { title : req.body.title } }, { new:true })
         .then(data => {
-            console.log('encontrei o board para editar: ', data)
             res.status(201).send({ message: 'Título do board editado com sucesso', data: data });  
         }).catch(error => {
-            console.log('erro ao alterar:', error);
             res.status(400).send({ message: 'Falha ao editar título do board', data: error })
         });
     }
@@ -119,7 +112,6 @@ exports.put = (req, res) => {
 exports.delete = (req, res) => {
     Board.findByIdAndDelete(req.params.id)
    .then(async data => {
-       console.log('then do delete', data._id, data.owner);
        await removeBoardToUser(data);
        await removeCardsFromBoard(data);
        res.status(200).send({message: 'Board deletado com sucesso!', data: data}); 

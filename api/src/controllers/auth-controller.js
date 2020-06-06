@@ -7,16 +7,12 @@ const md5 = require('md5');
 
 exports.get = async (req, res) => {
     const token = req.headers['x-api-key'];
-    console.log(token);
-    authService.decodeToken(token)
-        .then(data => {
-            console.log('data:  ', data);
-            res.status(200)
-        })
-        .catch(err => {
-            console.log('error: ', err);
-            res.status(404)
-        });
+    const auth = await authService.decodeToken(token);
+    if (auth !== false) {
+        return res.status(200).send({ message: "token valid" });
+    }
+
+    return res.status(401).send({ message: "token invalid" });
 };
 
 //Cria novo usuário
