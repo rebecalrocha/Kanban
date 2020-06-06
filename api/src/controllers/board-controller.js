@@ -64,6 +64,7 @@ exports.get = async (req, res) => {
 
 //Cria novo board
 exports.post = async (req, res) => {
+    console.log('post create');
     let board = await Board.find({ title: req.body.title });
 
     if(board.length) 

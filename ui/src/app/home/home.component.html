@@ -4,9 +4,9 @@
         <div style="min-width: 300px; max-width: 300px; height:110px;" class="theme-{{boardTheme[boards.indexOf(item)]}} board card rounded flex-fill p-2 m-5 font-weight-bold text-break" *ngFor="let item of boards" (click)="goToBoard(item)">
             {{item.title}}
         </div>
-        <a style="min-width: 300px; max-width: 300px; height:110px; display: table; background-color:rgb(211, 211, 211, 0.5); " class="board card rounded flex-fill p-2 m-5 text-center"  (click)="createBoard()" href="#">
-            <span style="display: table-cell; vertical-align: middle;">New Board +</span>
-        </a>
+        <button style="min-width: 300px; max-width: 300px; height:110px; background-color:rgb(211, 211,  211, 0.5); " class="board rounded flex-fill m-5 text-center btn btn-link"  (click)="createBoard()">
+            New Board +
+        </button>
     
     </div>
 </div>

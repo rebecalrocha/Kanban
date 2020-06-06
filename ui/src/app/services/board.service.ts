@@ -8,6 +8,7 @@ export class BoardService {
     url = 'http://localhost:3000/boards'
 
     createBoard(body){
+        console.log('no serviço create board');
         return this.http.post(this.url, body, { headers: new HttpHeaders({'x-api-key': this.currentUser.token})})
     }
 

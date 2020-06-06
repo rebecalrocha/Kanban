@@ -7,18 +7,19 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class AuthService {
     public token: string;
+    currentUser: any;
 
     constructor(private http: HttpClient) {
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = currentUser && currentUser.token;
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.token = this.currentUser && this.currentUser.token;
     }
 
     login(email, password): Observable<any> {
         let body = {"email": email, "password": password}
-        console.log("body: ", body)
         return this.http.post('http://localhost:3000/login', body)
             .pipe(
                 map((data: any)  => {
+                    console.log(data);
                     let token = data && data.token;
                     if (token) {
                         this.token = token;
@@ -35,8 +36,7 @@ export class AuthService {
     }
 
     verifyToken() {
-        console.log('dentro do service');
-        return this.http.get('http://localhost:3000/auth', { headers: new HttpHeaders({'x-api-key': this.token})})
+        return this.http.get('http://localhost:3000/auth', { headers: new HttpHeaders({'x-api-key': this.token}), responseType: 'text'});   
     }
 
 }

@@ -14,8 +14,6 @@ export class HomeComponent implements OnInit {
   boards = [];
 
   constructor(private router: Router, private modalService: NgbModal, private userService: UserService) { }
-  currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  url = 'http://localhost:3000'; 
   boardTheme = []
 
   ngOnInit(): void {
@@ -29,7 +27,6 @@ export class HomeComponent implements OnInit {
       data.map(board => { this.boardTheme.push(board.theme); });
     },
     (err) => {
-      console.log('erro do get Cards: ',err);
       this.router.navigate(['/login']);
     })
   };

@@ -19,8 +19,12 @@ export class CreateBoardComponent {
     let body = { 'title': this.title };
     this.boardService.createBoard(body)
     .subscribe((data: any) => {
+      console.log('data:  ', data);
       this.activeModal.dismiss('Cross click');
       this.router.navigate(['/kanban'], { queryParams: { board_id: data.data._id, board_title: data.data.title } })
+    },
+    (err) => {
+      console.log('erro create: ', err);
     });   
   }
 

@@ -11,25 +11,34 @@ import { MessageService } from './services/message.service';
 export class AppComponent implements OnInit {
   name: string;
   constructor(private authentication: AuthService, private router: Router, private message: MessageService) {}
-  currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
+  currentUser: any;
 
   ngOnInit(): void {
-    if(!this.currentUser){
-      this.logout();
-      return;
-      
+    // this.validated();
+    console.log('app.component init');
+    
+  }
+
+  getName() {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (this.currentUser) {
+      return this.currentUser.user_name;
     }
+
+    return '';
+  }
+
+  validated(){
     this.authentication.verifyToken()
     .subscribe((data: any) => {
       console.log('data: ',data);
     },
     (err) => {
+      console.log('erro: ', err);
       this.logout();
       return;
     });
-    console.log(this.currentUser);
-    this.name = this.currentUser.user_name;
+    
   }
 
   messages() {

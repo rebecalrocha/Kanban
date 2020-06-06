@@ -21,7 +21,7 @@
           <span *ngIf="isLogged()"> <img src="assets/people.svg"> </span>
         </a>
         <div class="dropdown-menu dropdown-menu-right rounded" style="min-width: 6rem; cursor:default;">
-          <div class="text text-center font-weight-bold" *ngIf="isLogged()">{{name}}</div>
+          <div class="text text-center font-weight-bold" *ngIf="isLogged()">{{ getName() }}</div>
           <div class="dropdown-divider" *ngIf="isLogged()"></div>
           <button class="dropdown-item" *ngIf="!isLogged()" type="button" routerLink="/login">Log In</button>
           <button class="dropdown-item" *ngIf="!isLogged()" type="button" routerLink="/signup">Sign Up</button>
