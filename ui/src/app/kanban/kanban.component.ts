@@ -30,9 +30,8 @@ export class KanbanComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.queryParamMap
     .subscribe((params: any) => {
-      if (params.params.board_id)
-       this.board_id = params.params.board_id;
-       this.board_title = params.params.board_title; 
+      this.board_id = params.params.board_id;
+      this.board_title = params.params.board_title; 
     });
     this.getCards();
   }
@@ -52,7 +51,6 @@ export class KanbanComponent implements OnInit {
     let body = { 'theme': img };
     this.boardService.editTheme(this.board_id, body)
     .subscribe((data: any) => {
-      console.log('board editado:  ', data);
       this._document.body.classList.add('bodybg-'+img);
     });   
   }

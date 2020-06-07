@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark">
   <a class="text navbar-brand font-weight-bold">{{board_title}}</a>
 
-  <li class="dropdown" style="list-style-type:none;">
+  <li class="list dropdown">
     <a class="icon dropdown" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
       <img src="assets/three-dots.svg">
     </a>
@@ -42,7 +42,7 @@
             <div class="text-break text-justify w-100">
               {{ item.description }}
             </div>
-            <div style="width: 50px; margin-top: 5px;" class="text-right">
+            <div class="mt-3 w-25 text-right">
               <a class="icon mr-1" (click)="editCard(item)">
                 <img src="assets/edit.svg">
               </a>
@@ -72,7 +72,7 @@
             <div class="text-break text-justify w-100">
               {{ item.description }}
             </div>
-            <div style="width: 50px; margin-top: 5px;" class="text-right">
+            <div class="mt-3 w-25 text-right">
               <a class="icon mr-1" (click)="editCard(item)">
                 <img src="assets/edit.svg">
               </a>
@@ -101,7 +101,7 @@
             <div class="text-break text-justify w-100">
               {{ item.description }}
             </div>
-            <div style="width: 50px; margin-top: 5px;" class="text-right">
+            <div class="mt-3 w-25 text-right">
               <a class="icon mr-1" (click)="editCard(item)">
                 <img src="assets/edit.svg">
               </a>
