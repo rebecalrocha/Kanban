@@ -24,7 +24,6 @@ export class SettingsComponent implements OnInit {
     let body = {'name': this.name}
     this.userService.editName(this.currentUser.user_id,body)
     .subscribe((data: any) => {
-      console.log('data do change name: ', data);
       this.message.createMessage('primary', data.message);
       this.router.navigate(['/home'])
     }); 

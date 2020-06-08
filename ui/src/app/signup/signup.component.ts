@@ -20,7 +20,6 @@ export class SignupComponent implements OnInit {
 
     this.userService.createUser(body)
       .subscribe((data: any) => {
-        console.log("data do signup", data);
         this.authentication.login(email, password)
           .subscribe(res => {
             if(res) {

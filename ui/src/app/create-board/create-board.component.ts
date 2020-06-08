@@ -24,7 +24,7 @@ export class CreateBoardComponent {
       this.router.navigate(['/kanban'], { queryParams: { board_id: data.data._id, board_title: data.data.title } })
     },
     (err) => {
-      console.log('erro create: ', err);
+      console.log('error: ', err);
     });   
   }
 

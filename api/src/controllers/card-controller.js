@@ -9,7 +9,7 @@ function addCardToBoard(card) {
 	return Board.findByIdAndUpdate(card.board, {$push: {cards: card._id}}, {upsert: true},
         function (err, data) {
             if (err) throw err;
-            console.log('card adicionado: ', data); 
+            console.log('card added: ', data); 
         });
 };
 
@@ -18,7 +18,7 @@ function removeCardToBoard(card) {
     return Board.findByIdAndUpdate(card.board, {$pull: {cards: card._id}}, 
         function (err, data){
             if (err) throw err;
-            console.log('card deletado: ', data);
+            console.log('card deleted: ', data);
         })
 };
 
@@ -36,16 +36,16 @@ exports.getOne = async (req, res) => {
 //Cria novo card
 exports.post = async (req, res) => {
     let card = new Card();
-    card.description = req.body.description; //informação do card
+    card.description = req.body.description;
     card.status = req.body.status;
     card.board = req.body.board_id;
     
     card.save()
     .then(data => {
         addCardToBoard(data);
-        res.status(201).send({ message: 'Card registrado com sucesso', data: data }); //created 
+        res.status(201).send({ message: 'Card successfully created!', data: data });
     }).catch(error => {
-        res.status(400).send({ message: 'Falha ao registrar card', data: error })
+        res.status(400).send({ message: 'Failed to create card', data: error })
     });
 };
 
@@ -55,18 +55,18 @@ exports.put = async (req, res) => {
     if(req.body.status){
         Card.findByIdAndUpdate(req.params.id, { $set: { status : req.body.status } }, { new:true })
         .then(data => {
-            res.status(201).send({ message: 'Status do card alterado com sucesso', data: data });  
+            res.status(201).send({ message: 'Card status successfully edited!', data: data });  
         }).catch(error => {
-            res.status(400).send({ message: 'Falha ao alterar status do card', data: error })
+            res.status(400).send({ message: 'Failed to edit card status', data: error })
         });
     }
     //Altera conteúdo do card
     if(req.body.description){
         Card.findByIdAndUpdate(req.params.id, { $set: { description : req.body.description } }, { new:true })
     .then(data => {
-        res.status(201).send({ message: 'Card editado com sucesso', data: data });  
+        res.status(201).send({ message: 'Card content successfully edited!', data: data });  
     }).catch(error => {
-        res.status(400).send({ message: 'Falha ao editar card', data: error })
+        res.status(400).send({ message: 'Failed to edit card content', data: error })
     });
     }
     
@@ -77,8 +77,8 @@ exports.delete = (req, res) => {
      Card.findByIdAndDelete(req.params.id)
     .then(async data => {
         await removeCardToBoard(data);
-        res.status(200).send({message: 'Card removido com sucesso', data: data}); 
+        res.status(200).send({message: 'Card successfully  deleted!', data: data}); 
     }).catch(error => {
-        res.status(400).send({message: 'Falha ao remover card', data: error})
+        res.status(400).send({message: 'Failed to delete card', data: error})
     });
 };

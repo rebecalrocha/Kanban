@@ -15,7 +15,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.validated();
-    console.log('app.component init');
     
   }
 
@@ -28,13 +27,10 @@ export class AppComponent implements OnInit {
 
   validated(){
     if (JSON.parse(localStorage.getItem('currentUser'))) {
-      console.log('validei');
       this.authentication.verifyToken()
       .subscribe((data: any) => {
-        console.log('data: ',data);
       },
       (err) => {
-        console.log('erro: ', err);
         this.logout();
         return;
       });

@@ -23,12 +23,8 @@ export class HomeComponent implements OnInit {
   getBoardsFromUser(){
     this.userService.getBoards()
     .subscribe((data: any) => {
-      console.log('data:  ', data);
       data.map(board => { this.boards.push(board); });
       data.map(board => { this.boardTheme.push(board.theme); });
-    },
-    (err) => {
-      this.router.navigate(['/login']);
     })
   };
 

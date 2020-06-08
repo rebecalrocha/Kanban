@@ -22,7 +22,6 @@ export class CreateCardComponent {
     let body = { "description": this.description, "status": this.status, "board_id": this.board_id };
     this.cardService.createCard(body)
       .subscribe((data: any) => {
-        console.log(data);
         this.triggerEvent(data.data);
         this.activeModal.dismiss('Cross click');
       });      

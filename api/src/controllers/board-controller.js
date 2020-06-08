@@ -9,7 +9,7 @@ function addBoardToUser(board) {
 	return User.findByIdAndUpdate(board.owner, {$push: {boards: board._id}}, {upsert: true},
         function (err, data) {
             if (err) throw err;
-            console.log('board adicionado: ', data); 
+            console.log('board added: ', data); 
         });
 };
 
@@ -17,16 +17,15 @@ function removeBoardToUser(board) {
     return User.findByIdAndUpdate(board.owner, {$pull: {boards: board._id}}, 
         function (err, data){
             if (err) throw err;
-            console.log('board deletado do user: ', data);
+            console.log('deleted users board: ', data);
         })
 };
 
 function removeCardsFromBoard(board) {
-    console.log('remove cards', board);
     return Card.deleteMany({board: board._id}, 
         function (err, result){
             if (err) throw err;
-            console.log('resultado delete many: ', result);
+            console.log('deleted boards cards: ', result);
         })
 };
 
@@ -66,7 +65,7 @@ exports.post = async (req, res) => {
     let board = await Board.find({ title: req.body.title });
 
     if(board.length) 
-        return res.status(400).send({ message: 'Já existe um board com este nome' })
+        return res.status(400).send({ message: 'There is already a board with this name!' })
 
     const token = req.headers['x-api-key'];
     const auth = await authService.decodeToken(token);
@@ -80,30 +79,30 @@ exports.post = async (req, res) => {
     board.save()
     .then(data => {
         addBoardToUser(data);
-        res.status(201).send({ message: 'Board criado com sucesso', data: data }); //created 
+        res.status(201).send({ message: 'Board successfully created!', data: data }); //created 
     }).catch(error => {
-        res.status(400).send({ message: 'Falha ao criar', data: error })
+        res.status(400).send({ message: 'Failed to create board', data: error })
     });
 };
 
-//Altera título ou tema do board
 exports.put = (req, res) => {
-
+    //Altera tema do board
     if(req.body.theme){
+        
         Board.findByIdAndUpdate(req.params.id, { $set: { theme : req.body.theme } }, { new:true })
         .then(data => {
-            res.status(201).send({ message: 'Tema editado com sucesso', data: data });  
+            res.status(201).send({ message: 'Board theme successfully edited!', data: data });  
         }).catch(error => {
-            res.status(400).send({ message: 'Falha ao trocar o tema do board', data: error })
+            res.status(400).send({ message: 'Failed to edit board theme', data: error })
         });
     } 
-    
+    //Altera título do board
     if(req.body.title){ 
         Board.findByIdAndUpdate(req.params.id, { $set: { title : req.body.title } }, { new:true })
         .then(data => {
-            res.status(201).send({ message: 'Título do board editado com sucesso', data: data });  
+            res.status(201).send({ message: 'Board title successfully  edited!', data: data });  
         }).catch(error => {
-            res.status(400).send({ message: 'Falha ao editar título do board', data: error })
+            res.status(400).send({ message: 'Failed to edit board title', data: error })
         });
     }
 };
@@ -114,8 +113,8 @@ exports.delete = (req, res) => {
    .then(async data => {
        await removeBoardToUser(data);
        await removeCardsFromBoard(data);
-       res.status(200).send({message: 'Board deletado com sucesso!', data: data}); 
+       res.status(200).send({message: 'Board successfully  deleted!', data: data}); 
    }).catch(error => {
-       res.status(400).send({message: 'Falha ao remover board', data: error})
+       res.status(400).send({message: 'Failed to delete board', data: error})
    });
 };

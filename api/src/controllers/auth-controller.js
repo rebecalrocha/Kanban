@@ -9,10 +9,10 @@ exports.get = async (req, res) => {
     const token = req.headers['x-api-key'];
     const auth = await authService.decodeToken(token);
     if (auth !== false) {
-        return res.status(200).send({ message: "token valid" });
+        return res.status(200).send({ message: "Token Valid" });
     }
 
-    return res.status(401).send({ message: "token invalid" });
+    return res.status(401).send({ message: "Token Invalid" });
 };
 
 //Cria novo usuário
@@ -20,7 +20,7 @@ exports.signup = async (req, res) => {
     let user = await User.find({ email: req.body.email });
 
     if(user.length) 
-        return res.status(400).send({ message: 'Email não disponível' })
+        return res.status(400).send({ message: 'Email address not available!' })
 
     user = new User();
     user.name = req.body.name;
@@ -32,9 +32,9 @@ exports.signup = async (req, res) => {
 
     user.save()
     .then(data => {
-        res.status(201).send({ message: 'Usuário cadastrado com sucesso', data: data });
+        res.status(201).send({ message: 'User successfully registered!', data: data });
     }).catch(error => {
-        res.status(400).send({ message: 'Falha ao cadastrar usuário', data: error })
+        res.status(400).send({ message: 'Failed to register user', data: error })
     });
 };
 
@@ -43,14 +43,14 @@ exports.login = async (req, res) => {
     try {
         let user = await User.findOne({ email: req.body.email, password: md5(req.body.password + global.SALT_KEY) });
         if(!user) {
-            res.status(404).send({ message: 'Usuário ou senha inválidos' })
+            res.status(404).send({ message: 'Username or password is invalid!' })
             return;
         }
 
         const token = await authService.generateToken({user_id: user._id});
-        res.status(201).send({ token: token, message: 'Usuário logado com sucesso!', user: user });
+        res.status(201).send({ token: token, message: 'User successfully logged in!', user: user });
 
     } catch (error) {
-        res.status(400).send({ message: 'Falha ao logar usuário', data: error })
+        res.status(400).send({ message: 'Login failed for user', data: error })
     }
 };

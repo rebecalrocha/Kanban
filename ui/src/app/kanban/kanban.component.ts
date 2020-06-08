@@ -65,7 +65,6 @@ export class KanbanComponent implements OnInit {
       data.task.done.map(card => { this.done.push(card); });
     },
     (err) => {
-      console.log('erro do get Cards: ',err);
       this.authentication.logout();
       this.router.navigate(['/login'])
     });
@@ -126,7 +125,7 @@ export class KanbanComponent implements OnInit {
       this.router.navigate(['/home'])
     },
     (err) => {
-      console.log('erro ao editar: ', err);
+      console.log('error: ', err);
     });
   }
 

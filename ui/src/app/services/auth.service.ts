@@ -19,7 +19,6 @@ export class AuthService {
         return this.http.post('http://localhost:3000/login', body)
             .pipe(
                 map((data: any)  => {
-                    console.log(data);
                     let token = data && data.token;
                     if (token) {
                         this.token = token;

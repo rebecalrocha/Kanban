@@ -22,15 +22,15 @@ exports.get = async (req, res) => {
 //Edit name
 exports.put = async (req, res) => {
     if(!req.body.name) {
-        res.status(400).send({ message: 'User must have a name.' })
+        res.status(400).send({ message: 'User must have a name!' })
         return;
     }
 
     await User.findByIdAndUpdate(req.params.id, { $set: {name: req.body.name}}, {upsert: true})
     .then(data => {
-        res.status(201).send({ message: 'Nome editado com sucesso', data: data });  
+        res.status(201).send({ message: 'Name successfully edited!', data: data });  
     }).catch(error => {
-        res.status(400).send({ message: 'Falha ao editar nome do usuário', data: error })
+        res.status(400).send({ message: 'Failed to edit username', data: error })
     });
 }
 
@@ -38,8 +38,8 @@ exports.put = async (req, res) => {
 exports.delete = (req, res) => {
     User.findByIdAndDelete(req.params.id)
     .then(data => {
-        res.status(200).send({message: 'Usuário removido com sucesso!', data: data}); //ok
+        res.status(200).send({message: 'User successfully deleted!', data: data}); //ok
     }).catch(error => {
-        res.status(400).send({message: 'Falha ao remover usuário', error: error})
+        res.status(400).send({message: 'Failed to delete user', error: error})
     });
 };

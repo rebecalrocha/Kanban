@@ -19,7 +19,6 @@ export class EditCardComponent {
     let body = {"description": this.card.description }
     this.cardService.editCardDescription(this.card._id, body)
       .subscribe((data: any) => {
-        console.log('data: ', data);
         this.activeModal.dismiss('Cross click');
       },
       (err) => {
