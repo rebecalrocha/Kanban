@@ -10,7 +10,7 @@
       <button class="dropdown-item" type="button" (click)="deleteBoard()">Delete Board</button>
       
       <li class="dropdown-submenu">
-        <a class="icon dropdown-item" data-toggle="dropdown" data-display="static" id="dropdownThemeButton" aria-haspopup="true" aria-expanded="false">
+        <a class="icon dropdown-item d-none d-lg-block d-xl-none" data-toggle="dropdown" data-display="static" id="dropdownThemeButton" aria-haspopup="true" aria-expanded="false">
           Themes
         </a>
         <ul class="dropdown-menu">
@@ -26,9 +26,9 @@
 
 </nav>
 
-<div class="task-container my-5" cdkDropListGroup>
+<div class="task-container my-lg-5 my-2" cdkDropListGroup>
 
-  <div class="card rounded column mr-1 ml-5">  <!-- task TO DO -->
+  <div class="card rounded column w-30 m-2">  <!-- task TO DO -->
       <div class="text card-header text-center">
         <h5 class="font-weight-bold">TO DO</h5>
       </div>
@@ -42,7 +42,7 @@
             <div class="text-break text-justify w-100">
               {{ item.description }}
             </div>
-            <div class="mt-3 w-25 text-right">
+            <div class="mt-1 w-25 text-right">
               <a class="icon mr-1" (click)="editCard(item)">
                 <img src="assets/edit.svg">
               </a>
@@ -57,7 +57,7 @@
       </div>
   </div>
 
-  <div class="card rounded column mx-4">  <!-- task DOING -->
+  <div class="card rounded column w-30 m-2 ">  <!-- task DOING -->
       <div class="text card-header text-center">
           <h5 class="font-weight-bold">DOING</h5>
         </div>
@@ -72,7 +72,7 @@
             <div class="text-break text-justify w-100">
               {{ item.description }}
             </div>
-            <div class="mt-3 w-25 text-right">
+            <div class="mt-1 w-25 text-right">
               <a class="icon mr-1" (click)="editCard(item)">
                 <img src="assets/edit.svg">
               </a>
@@ -87,7 +87,7 @@
       </div>
   </div>
 
-  <div class="card rounded column mr-5 ml-1">  <!-- task DONE -->
+  <div class="card rounded column w-30 m-lg m-2">  <!-- task DONE -->
       <div class="text card-header text-center">
           <h5 class="font-weight-bold">DONE</h5>
         </div>
@@ -101,7 +101,7 @@
             <div class="text-break text-justify w-100">
               {{ item.description }}
             </div>
-            <div class="mt-3 w-25 text-right">
+            <div class="mt-1 w-25 text-right">
               <a class="icon mr-1" (click)="editCard(item)">
                 <img src="assets/edit.svg">
               </a>

@@ -26,7 +26,7 @@ exports.put = async (req, res) => {
         return;
     }
 
-    await User.findByIdAndUpdate(req.params.id, { $set: {name: req.body.name}}, {upsert: true})
+    User.findByIdAndUpdate(req.params.id, { $set: {name: req.body.name}}, {upsert: true})
     .then(data => {
         res.status(201).send({ message: 'Name successfully edited!', data: data });  
     }).catch(error => {
@@ -35,7 +35,7 @@ exports.put = async (req, res) => {
 }
 
 //Deleta usuário
-exports.delete = (req, res) => {
+exports.delete = async (req, res) => {
     User.findByIdAndDelete(req.params.id)
     .then(data => {
         res.status(200).send({message: 'User successfully deleted!', data: data}); //ok

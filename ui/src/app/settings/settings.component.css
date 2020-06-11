@@ -1,1 +1,8 @@
 
+
+@media (min-width: 800px) {
+    .content-lg{
+        margin: 15% 35%;
+        text-align: center; 
+    }
+  }

@@ -1,11 +1,13 @@
 .task-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .column {
     width: 500px;
+    min-height: 225px;;
     background:rgba(211,211,211, 0.6)
 }
 

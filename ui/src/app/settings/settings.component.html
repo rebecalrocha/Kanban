@@ -1,14 +1,14 @@
 <div class="wapper">
-    <div id="content">
+    <div class="content-lg"> <!--content -->
         <form class="mt-5">
-            <div class="form-group col-12 my-5 d-flex justify-content-start">
+            <div class="form-group my-5 ml-2 d-flex justify-content-start">
                 <label class="font-weight-bold">Name:</label>
                 <input class="mx-2" name="name" [(ngModel)]="name" #nameControl="ngModel">
                 <button class="btn btn-dark rounded" (click)="changeName()">Update</button>
             </div>
-            <div class="form-group col-12 d-flex justify-content-start">
+            <div class="form-group ml-2 d-flex justify-content-start">
                 <button class="btn btn-danger rounded" (click)="deleteUser()">Delete Account</button>
             </div>
-        </form>
+        </form> 
     </div>
 </div>
