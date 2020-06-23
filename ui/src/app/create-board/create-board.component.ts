@@ -13,18 +13,20 @@ export class CreateBoardComponent {
   constructor(private router: Router, private boardService: BoardService, public activeModal: NgbActiveModal) { }
   title: string;
   flag = false;
+  alreadyExists = false;
+  error: string;
 
   create(){
     this.flag = true;
     let body = { 'title': this.title };
     this.boardService.createBoard(body)
     .subscribe((data: any) => {
-      console.log('data:  ', data);
       this.activeModal.dismiss('Cross click');
       this.router.navigate(['/kanban'], { queryParams: { board_id: data.data._id, board_title: data.data.title } })
     },
     (err) => {
-      console.log('error: ', err);
+      this.error = err.error.message;
+      this.alreadyExists = true;
     });   
   }
 

@@ -22,6 +22,7 @@ export class AuthService {
                     let token = data && data.token;
                     if (token) {
                         this.token = token;
+                            
                         localStorage.setItem('currentUser', JSON.stringify({ token: token, user_id: data.user._id, user_name: data.user.name }));
                     }
                     return data;

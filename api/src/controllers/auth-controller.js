@@ -46,9 +46,20 @@ exports.login = async (req, res) => {
             res.status(404).send({ message: 'Username or password is invalid!' })
             return;
         }
+        
+        //envio apenas as informações necessárias
+        const sanitizeUser = user => {
+            return {
+                boards: user.boards,
+                _id: user._id,
+                name: user.name,
+                email: user.email
+            }
+        }
+        let _user = sanitizeUser(user);
 
-        const token = await authService.generateToken({user_id: user._id});
-        res.status(201).send({ token: token, message: 'User successfully logged in!', user: user });
+        const token = await authService.generateToken({user_id: _user._id});
+        res.status(201).send({ token: token, message: 'User successfully logged in!', user: _user });
 
     } catch (error) {
         res.status(400).send({ message: 'Login failed for user', data: error })

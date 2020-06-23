@@ -20,14 +20,8 @@ export class SignupComponent implements OnInit {
 
     this.userService.createUser(body)
       .subscribe((data: any) => {
-        this.authentication.login(email, password)
-          .subscribe(res => {
-            if(res) {
-              this.message.createMessage('success', data.message);
-              this.router.navigate(['/kanban']);
-            }
-          });
-
+        this.message.createMessage('success', data.message);
+        this.router.navigate(['/login']);
       },
       (err) => {
         this.message.createMessage('danger', err.error.message);

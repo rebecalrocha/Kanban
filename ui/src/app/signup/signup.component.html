@@ -7,11 +7,11 @@
             </div>
             <div class="form-group col-12">
                 <label for="inputEmail">Email</label>
-                <input type="email" class="form-control" #email id="inputEmail">
+                <input type="email" class="form-control" #email id="inputEmail" autocomplete="off">
             </div>
             <div class="form-group col-12">
                 <label for="inputPassword">Password</label>
-                <input type="password" class="form-control" #password id="inputPassword">
+                <input type="password" class="form-control" #password id="inputPassword" autocomplete="off">
             </div>
             <button type="button" class="btn btn-dark" (click)="signup(name.value, email.value, password.value)">Sign Up</button>
         </form>
